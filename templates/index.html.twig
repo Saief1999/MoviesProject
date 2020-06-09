@@ -1,7 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends 'base.html.twig' %}
+{#
 <!-- Basic -->
-
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -35,49 +34,11 @@
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 
-</head>
+</head>#}
 
-<body id="home" data-spy="scroll" data-target="#navbar-wd" data-offset="98">
 
-<!-- LOADER -->
-<div id="preloader">
-    <div class="loader">
-        <img src="{{ asset("images/loader.gif") }}"  alt="#" />
-    </div>
-</div>
-<!-- end loader -->
-<!-- END LOADER -->
 
-<!-- Start header -->
-<header class="top-header">
-    <nav class="navbar header-nav navbar-expand-lg">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="index.html"><img src="{{ asset("images/logo.png") }}" alt="image"></a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-wd" aria-controls="navbar-wd" aria-expanded="false" aria-label="Toggle navigation">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
-            <div class="collapse navbar-collapse justify-content-end" id="navbar-wd">
-                <ul class="navbar-nav">
-                    <li><a class="nav-link active" href="index.html">Home</a></li>
-                    <li><a class="nav-link" href="about.html">About</a></li>
-                    <li><a class="nav-link" href="courses.html">Courses</a></li>
-                    <li><a class="nav-link" href="reaserch.html">Reaserch</a></li>
-                    <li><a class="nav-link" href="news.html">News</a></li>
-                    <li><a class="nav-link" href="contact.html">Contact us</a></li>
-                </ul>
-            </div>
-            <div class="search-box">
-                <input type="text" class="search-txt" placeholder="Search">
-                <a class="search-btn">
-                    <img src="{{ asset('images/search_icon.png') }}" alt="#" />
-                </a>
-            </div>
-        </div>
-    </nav>
-</header>
-<!-- End header -->
+{% block body %}
 
 <!-- Start Banner -->
 <div class="ulockd-home-slider">
@@ -457,6 +418,9 @@
 
 <a href="#" id="scroll-to-top" class="hvr-radial-out"><i class="fa fa-angle-up"></i></a>
 
+{% endblock %}
+
+{% block javascripts %}
 <!-- ALL JS FILES -->
 <script src="{{ asset('js/jquery.min.js') }}" ></script>
 <script src="{{ asset('js/popper.min.js') }}"></script>
@@ -465,7 +429,9 @@
 <script src="{{ asset('js/jquery.magnific-popup.min.js') }}"></script>
 <script src="{{ asset('js/jquery.pogo-slider.min.js') }}"  ></script>
 <script src="{{ asset('js/slider-index.js') }}" ></script>
+{#
 <script src="{{ asset('js/smoothscroll.js') }}" ></script>
+#}
 <script src="{{ asset('js/form-validator.min.js') }}" ></script>
 <script src="{{ asset('js/contact-form-script.js') }}" ></script>
 <script src="{{ asset('js/isotope.min.js') }}" ></script>
@@ -573,6 +539,4 @@
         }
     });
 </script>
-</body>
-
-</html>
+{% endblock %}

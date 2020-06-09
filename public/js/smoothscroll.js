@@ -30,7 +30,7 @@ var cache={};setInterval(function(){cache={};},10*1000);var uniqueID=(function()
 cache[uniqueID(elems[i])]=overflowing;return overflowing;}
 function overflowingAncestor(el){var elems=[];var rootScrollHeight=root.scrollHeight;do{var cached=cache[uniqueID(el)];if(cached){return setCache(elems,cached);}
 elems.push(el);if(rootScrollHeight===el.scrollHeight){if(!isFrame||root.clientHeight+ 10<rootScrollHeight){return setCache(elems,document.body);}}else if(el.clientHeight+ 10<el.scrollHeight){overflow=getComputedStyle(el,"").getPropertyValue("overflow-y");if(overflow==="scroll"||overflow==="auto"){return setCache(elems,el);}}}while(el=el.parentNode);}
-function addEvent(type,fn,bubble){window.addEventListener(type,fn,(bubble||false));}
+function addEvent(type,fn,bubble){window.addEventListener(type,fn,(bubble||{passive : false}));}
 function removeEvent(type,fn,bubble){window.removeEventListener(type,fn,(bubble||false));}
 function isNodeName(el,tag){return(el.nodeName||"").toLowerCase()===tag.toLowerCase();}
 function directionCheck(x,y){x=(x>0)?1:-1;y=(y>0)?1:-1;if(direction.x!==x||direction.y!==y){direction.x=x;direction.y=y;que=[];lastScroll=0;}}
