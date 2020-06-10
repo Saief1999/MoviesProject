@@ -14,20 +14,30 @@
     {{ form_start(registrationForm) }}
 
     <div class="row">
-        <div class="col-6">{{ form_row(registrationForm.firstName) }}</div>
-        <div class="col-6">{{ form_row(registrationForm.lastName) }}</div>
+        <div class="col-6">{{ form_row(registrationForm.user.firstName) }}</div>
+        <div class="col-6">{{ form_row(registrationForm.user.lastName) }}</div>
     </div>
-    {{ form_row(registrationForm.username) }}
-        {{ form_row(registrationForm.username) }}
+        {{ form_row(registrationForm.user.username) }}
 
-        {{ form_row(registrationForm.email) }}
-        {{ form_row(registrationForm.plainPassword, {
+        {{ form_row(registrationForm.user.email) }}
+        {{ form_row(registrationForm.user.plainPassword, {
             label: 'Password'
         }) }}
-        {{ form_row(registrationForm.agreeTerms) }}
+        {{ form_row(registrationForm.favoriteGenres,{
+            label: 'Favortie Genres'
+        }) }}
+    {{ form_row(registrationForm.user.agreeTerms) }}
 
         <button type="submit" class="btn">Register</button>
     {{ form_end(registrationForm) }}
 
 </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        $(document).ready(function () {
+            $('select').selectpicker();
+        });
+    </script>
 {% endblock %}
