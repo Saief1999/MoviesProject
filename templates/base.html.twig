@@ -67,7 +67,11 @@
                         <li><a class="nav-link" href="reaserch.html">Reaserch</a></li>
                         <li><a class="nav-link" href="news.html">News</a></li>
                         <li><a class="nav-link" href="contact.html">Contact us</a></li>
-                        <li><a class="nav-link" href="contact.html">Login</a></li>
+                        {% if app.user %}
+                        <li><a class="nav-link" href="{{ url('app_logout') }}">Logout</a></li>
+                        {% else %}
+                        <li><a class="nav-link" href="{{ url('app_login') }}">Login</a></li>
+                        {% endif %}
                     </ul>
                 </div>
                 <div class="search-box">
