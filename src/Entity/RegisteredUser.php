@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\RegisteredUserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -23,6 +25,16 @@ class RegisteredUser
      */
     private $user;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=MovieGenre::class)
+     */
+    private $favoriteGenres;
+
+    public function __construct()
+    {
+        $this->favoriteGenres = new ArrayCollection();
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -36,6 +48,32 @@ class RegisteredUser
     public function setUser(User $user): self
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|MovieGenre[]
+     */
+    public function getFavoriteGenres(): Collection
+    {
+        return $this->favoriteGenres;
+    }
+
+    public function addFavoriteGenre(MovieGenre $favoriteGenre): self
+    {
+        if (!$this->favoriteGenres->contains($favoriteGenre)) {
+            $this->favoriteGenres[] = $favoriteGenre;
+        }
+
+        return $this;
+    }
+
+    public function removeFavoriteGenre(MovieGenre $favoriteGenre): self
+    {
+        if ($this->favoriteGenres->contains($favoriteGenre)) {
+            $this->favoriteGenres->removeElement($favoriteGenre);
+        }
 
         return $this;
     }
