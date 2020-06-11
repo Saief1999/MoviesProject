@@ -20,7 +20,7 @@
         <link rel="apple-touch-icon" href="#" />
 
         <!-- Bootstrap CSS -->
-        <link rel="stylesheet" href="{{ asset("css/bootstrap.min.css") }}" />
+        <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}" />
         <!-- Pogo Slider CSS -->
         <link rel="stylesheet" href="{{ asset("css/pogo-slider.min.css") }}" />
         <!-- Site CSS -->
@@ -71,12 +71,27 @@
                         <li><a class="nav-link" href="reaserch.html">Reaserch</a></li>
                         <li><a class="nav-link" href="news.html">News</a></li>
                         <li><a class="nav-link" href="contact.html">Contact us</a></li>
-                        {% if app.user %}
+                       {# {% if app.user %}
                         <li><a class="nav-link" href="{{ url('app_logout') }}">Logout</a></li>
                         {% else %}
                         <li><a class="nav-link" href="{{ url('app_login') }}">Login</a></li>
                             <li><a class="nav-link" href="{{ url('app_register') }}">Register</a></li>
-                        {% endif %}
+                        {% endif %}#}
+
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Dropdown
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="#">Action</a>
+                                <a class="dropdown-item" href="#">Another action</a>
+                                <a class="dropdown-item" href="#">and Another One</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="#">Something else here</a>
+                            </div>
+                        </li>
+
+
                     </ul>
                 </div>
                 <div class="search-box">
@@ -189,7 +204,6 @@
        });
        function changeId(){
            var path = location.pathname;
-           console.log(path);
            if (path==="/")document.getElementsByTagName("body").item(0).setAttribute("id","home");
 
        }
