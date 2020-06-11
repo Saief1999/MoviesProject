@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+
+{% block title %}Email verification{% endblock %}
+{% block body %}
+    <div class="container mt-md-4">
+
+        {% for flashSucess in app.session.flashBag.get('success') %}
+        <div class="alert alert-success" role="alert">{{ flashSucess }}</div>
+        {% endfor %}
+
+        {% for flashError in app.session.flashBag.get('verify_email_error') %}
+            <div class="alert alert-danger" role="alert">{{ flashError }}</div>
+        {% endfor %}
+
+    </div>
+{% endblock %}

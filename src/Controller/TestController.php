@@ -5,6 +5,10 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
+/*
+ * This controller is for testing purposes , DO NOT DELETE IT
+ *      ~Saief
+ */
 class TestController extends AbstractController
 {
     /**
