@@ -14,13 +14,14 @@
 	/* ..............................................
     Navbar Bar
     ................................................. */
-	
+	/*
 	$('.navbar-nav .nav-link').on('click', function() {
 		var toggle = $('.navbar-toggler').is(':visible');
 		if (toggle) {
 			$('.navbar-collapse').collapse('hide');
+		------this is done automatically in newer versions of bootstrap------
 		}
-	});
+	});*/
 	
 	/* ..............................................
     Fixed Menu

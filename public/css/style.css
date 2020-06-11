@@ -374,8 +374,8 @@ a.navbar-brand img {
 }
 
 .top-header .navbar .navbar-collapse ul li a.active {}
-.top-header .navbar .navbar-collapse ul li a:hover,
-.top-header .navbar .navbar-collapse ul li a:focus {
+.top-header .navbar .navbar-collapse ul li a:hover/*,
+.top-header .navbar .navbar-collapse ul li a:focus*/ {
 	background: transparent;
 	color: #d4a81e;
 }
@@ -2160,8 +2160,8 @@ section.inner_banner h3 {
 	height: 41px;
 }
 
-.top-header.fixed-menu ul li:hover a,
-.top-header.fixed-menu ul li:focus a {
+.top-header.fixed-menu ul li a:hover
+/* ,.top-header.fixed-menu ul li a:focus  */ {
 	color: #0892fd !important;
 }
 
