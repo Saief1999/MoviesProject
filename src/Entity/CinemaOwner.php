@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\CinemaOwnerRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=CinemaOwnerRepository::class)
@@ -20,6 +21,7 @@ class CinemaOwner
     /**
      * @ORM\OneToOne(targetEntity=User::class, cascade={"persist", "remove"})
      * @ORM\JoinColumn(nullable=false)
+     * @Assert\Valid
      */
     private $user;
 

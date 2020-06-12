@@ -86,7 +86,15 @@
                             </li>
                         {% else %}
                         <li><a class="nav-link" href="{{ url('app_login') }}">Login</a></li>
-                            <li><a class="nav-link" href="{{ url('app_register') }}">Register</a></li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Register
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="{{ url('owner_app_register') }}">Register as Owner</a>
+                                    <a class="dropdown-item" href="{{ url('app_register') }}">Register as User</a>
+                                </div>
+                            </li>
                         {% endif %}
 
 

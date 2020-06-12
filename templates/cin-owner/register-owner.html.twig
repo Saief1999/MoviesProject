@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Register{% endblock %}
+
+{% block body %}
+    {% for flashError in app.session.flashBag.get('verify_email_error') %}
+        <div class="alert alert-danger" role="alert">{{ flashError }}</div>
+    {% endfor %}
+
+
+    <div class="container mt-md-4">
+        <h1>Register</h1>
+
+        {{ form_start(ownerRegistrationForm) }}
+
+        <div class="row">
+            <div class="col-6">{{ form_row(ownerRegistrationForm.user.firstName) }}</div>
+            <div class="col-6">{{ form_row(ownerRegistrationForm.user.lastName) }}</div>
+        </div>
+        {{ form_row(ownerRegistrationForm.user.username) }}
+
+        {{ form_row(ownerRegistrationForm.user.email) }}
+        {{ form_row(ownerRegistrationForm.user.plainPassword, {
+            label: 'Password'
+        }) }}
+        {{ form_row(ownerRegistrationForm.cinema.name,{'label' : 'Cinema Name' }) }}
+        {{ form_row(ownerRegistrationForm.cinema.adress,{'label' : 'Cinema Adress'}) }}
+        {{ form_row(ownerRegistrationForm.cinema.phoneNumber,{'label' : 'Cinema Phone Line'}) }}
+        {{ form_row(ownerRegistrationForm.cinema.openingTime) }}
+        {{ form_row(ownerRegistrationForm.cinema.closingTime) }}
+        {{ form_row(ownerRegistrationForm.user.agreeTerms) }}
+
+        <button type="submit" class="btn">Register</button>
+        {{ form_end(ownerRegistrationForm) }}
+
+    </div>
+{% endblock %}
