@@ -21,7 +21,7 @@ class RegUserController extends AbstractController
      */
     public function settings()
     {
-        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+       /* $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');*/
         return $this->render('reguser/settings.html.twig', [
         ]);
 

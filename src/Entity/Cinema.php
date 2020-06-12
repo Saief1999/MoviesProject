@@ -37,6 +37,11 @@ class Cinema
      */
     private $closingTime;
 
+    /**
+     * @ORM\Column(type="string", length=50)
+     */
+    private $name;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -86,6 +91,18 @@ class Cinema
     public function setClosingTime(\DateTimeInterface $closingTime): self
     {
         $this->closingTime = $closingTime;
+
+        return $this;
+    }
+
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    public function setName(string $name): self
+    {
+        $this->name = $name;
 
         return $this;
     }
