@@ -72,7 +72,7 @@
                         <li><a class="nav-link" href="reaserch.html">Reaserch</a></li>
                         <li><a class="nav-link" href="news.html">News</a></li>
                         <li><a class="nav-link" href="contact.html">Contact us</a></li>
-                        {% if app.user  %}
+                        {% if app.user and app.user.roles[0]=="ROLE_REG_USER" %}
 
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -81,12 +81,13 @@
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="{{ url('reguser_profile') }}">Profile</a>
                                     <a class="dropdown-item" href="{{ url('reguser_settings') }}">Settings</a>
+                                    <a class="dropdown-item" href="{{ url('reguser_settings') }}">{{ app.user.roles[0] }}</a>
                                     <div class="dropdown-divider"></div>
                                     <a class="dropdown-item" href={{ url("app_logout") }}>Logout</a>
 
                                 </div>
                             </li>
-                            {# {% elseif app.user and app.user.roles == "ROLE_CIN_OWNER" %}
+                             {% elseif app.user and app.user.roles[0] == "ROLE_CIN_OWNER" %}
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <i class="fa fa-user fa-lg" aria-hidden="true"></i>{{ app.user.username }}
@@ -94,10 +95,11 @@
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="{{ url('regowner_profile') }}">Profile</a>
                                     <a class="dropdown-item" href="{{ url('regowner_settings') }}">Settings</a>
+                                    <a class="dropdown-item" href="{{ url('reguser_settings') }}">{{ app.user.roles[0] }}</a>
                                     <div class="dropdown-divider"></div>
                                     <a class="dropdown-item" href={{ url("app_logout") }}>Logout</a>
                                 </div>
-                            </li> #}
+                            </li>
                         {% else %}
                         <li><a class="nav-link" href="{{ url('app_login') }}">Login</a></li>
                             <li class="nav-item dropdown">
