@@ -2,8 +2,8 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8">
-        <link rel="icon" type="image/ico" href="{{ asset("images/web-icon.png") }}" />
-        <title>{% block title %}Welcome!{% endblock %}</title>
+
+        <title>{% block title %}WhereToWatch!{% endblock %}</title>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
@@ -17,7 +17,7 @@
         <meta name="author" content="">
 
         <!-- Site Icons -->
-        <link rel="shortcut icon" href="#" type="image/x-icon" />
+        <link rel="shortcut icon" href="{{ asset("images/logo96.png") }}" type="image/x-icon" />
         <link rel="apple-touch-icon" href="#" />
 
         <!-- Bootstrap CSS -->
@@ -58,7 +58,7 @@
     <header class="top-header">
         <nav class="navbar header-nav navbar-expand-lg">
             <div class="container-fluid">
-                <a class="navbar-brand" href="{{ url('home') }}"><img src="{{ asset("images/logo.png") }}" alt="image"></a>
+                <a class="navbar-brand" href="{{ url('home') }}"><img src="{{ asset("images/title.png") }}" alt="image"></a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-wd" aria-controls="navbar-wd" aria-expanded="false" aria-label="Toggle navigation">
                     <span></span>
                     <span></span>
@@ -72,7 +72,7 @@
                         <li><a class="nav-link" href="reaserch.html">Reaserch</a></li>
                         <li><a class="nav-link" href="news.html">News</a></li>
                         <li><a class="nav-link" href="contact.html">Contact us</a></li>
-                        {% if app.user and app.user.roles !="ROLE_CIN_OWNER" %}
+                        {% if app.user  %}
 
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
