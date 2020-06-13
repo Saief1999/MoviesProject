@@ -2,6 +2,7 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8">
+        <link rel="icon" type="image/ico" href="{{ asset("images/web-icon.png") }}" />
         <title>{% block title %}Welcome!{% endblock %}</title>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -71,7 +72,7 @@
                         <li><a class="nav-link" href="reaserch.html">Reaserch</a></li>
                         <li><a class="nav-link" href="news.html">News</a></li>
                         <li><a class="nav-link" href="contact.html">Contact us</a></li>
-                        {% if app.user %}
+                        {% if app.user and app.user.roles !="ROLE_CIN_OWNER" %}
 
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -82,8 +83,21 @@
                                     <a class="dropdown-item" href="{{ url('reguser_settings') }}">Settings</a>
                                     <div class="dropdown-divider"></div>
                                     <a class="dropdown-item" href={{ url("app_logout") }}>Logout</a>
+
                                 </div>
                             </li>
+                            {# {% elseif app.user and app.user.roles == "ROLE_CIN_OWNER" %}
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="fa fa-user fa-lg" aria-hidden="true"></i>{{ app.user.username }}
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="{{ url('regowner_profile') }}">Profile</a>
+                                    <a class="dropdown-item" href="{{ url('regowner_settings') }}">Settings</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href={{ url("app_logout") }}>Logout</a>
+                                </div>
+                            </li> #}
                         {% else %}
                         <li><a class="nav-link" href="{{ url('app_login') }}">Login</a></li>
                             <li class="nav-item dropdown">
