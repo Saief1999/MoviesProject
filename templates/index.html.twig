@@ -90,13 +90,13 @@
             <div class="col-md-12">
                 <div class="tab_menu">
                     <ul>
-                        <li><a href="#"><span class="icon"><img src="{{ asset('images/i1.png') }}"   alt="#" /></span><span>University Life</span></a></li>
-                        <li><a href="#"><span class="icon"><img src="{{ asset('images/i2.png') }}"  alt="#" /></span><span>Graduation</span></a></li>
-                        <li><a href="#"><span class="icon"><img src="{{ asset('images/i3.png') }}"  alt="#" /></span><span>Athletics</span></a></li>
+                        <li><a href="#"><span class="icon"><img src="{{ asset('images/news-icon.png') }}"   alt="#" /></span><span>News</span></a></li>
+                        <li><a href="#"><span class="icon"><img src="{{ asset('images/circus.png') }}"  alt="#" /></span><span>Cinemas</span></a></li>
+                        <li><a href="#"><span class="icon"><img src="{{ asset('images/movie-icon.png') }}"  alt="#" /></span><span>Movies</span></a></li>
                         <li><a href="#"><span class="icon"><img src="{{ asset('images/i4.png') }}"  alt="#" /></span><span>Social</span></a></li>
                         <li><a href="#"><span class="icon"><img src="{{ asset('images/i5.png') }}"  alt="#" /></span><span>Location</span></a></li>
-                        <li><a href="#"><span class="icon"><img src="{{ asset('images/i6.png') }}"  alt="#" /></span><span>Call us</span></a></li>
-                        <li><a href="#"><span class="icon"><img src="{{ asset('images/i7.png') }}"  alt="#" /></span><span>Email</span></a></li>
+                        <li><a href="#"><span class="icon"><img src="{{ asset('images/mail.png') }}"  alt="#" /></span><span>Email</span></a></li>
+                        <li><a href="#"><span class="icon"><img src="{{ asset('images/i7.png') }}"  alt="#" /></span><span>call us</span></a></li>
                     </ul>
                 </div>
             </div>
@@ -111,13 +111,16 @@
             <div class="col-md-6 layout_padding_2">
                 <div class="full">
                     <div class="heading_main text_align_left">
-                        <h2><span>Welcome To</span> Education</h2>
+                        <h2><span>Welcome To</span> WhereToWatch</h2>
                     </div>
                     <div class="full">
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                            Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                            Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-                            Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>
+                        <p>WhereToWatch mainly focuses on the promotion of new releases in theaters and on DVD
+                            and information concerning the programming, it also offers a database covering all
+                            the films that have been broadcast in Tunisia, similar to the Internet Movie Database.
+                            Likewise, these data include numerous media evaluations of the films,
+                            paired with a collection of critical extracts and transposed onto a common rating scale,
+                            itself crowned with an average, which makes WhereToWatch an aggregator site.
+                            of reviews comparable to Rotten Tomatoes in the United States.</p>
                     </div>
                     <div class="full">
                         <a class="hvr-radial-out button-theme" href="#">About more</a>
@@ -126,7 +129,10 @@
             </div>
             <div class="col-md-6">
                 <div class="full">
-                    <img src="{{ asset('images/img2.png') }}" alt="#" />
+                    {% for i in 0..2 %}
+                    <br>
+                    {% endfor %}
+                    <img src="{{ asset('images/Samsung-ONYX-Pathe-Beaugrenelle.jpg') }}" alt="#" />
                 </div>
             </div>
         </div>

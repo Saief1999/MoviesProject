@@ -361,7 +361,7 @@ button:focus {
 	position: relative;
 	font-weight: 400;
 	overflow: hidden;
-	color: #000;
+	color: #13398A;
 }
 
 a.navbar-brand {
@@ -372,7 +372,6 @@ a.navbar-brand {
 a.navbar-brand img {
     height: 55px;
 }
-
 .top-header .navbar .navbar-collapse ul li a.active {}
 .top-header .navbar .navbar-collapse ul li a:hover/*,
 .top-header .navbar .navbar-collapse ul li a:focus*/ {
