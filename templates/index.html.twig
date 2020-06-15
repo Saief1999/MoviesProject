@@ -146,83 +146,29 @@
             <div class="col-md-12">
                 <div class="full">
                     <div class="heading_main text_align_center">
-                        <h2><span>Popular </span>Courses</h2>
+                        <h2><span>What </span>We Offer</h2>
                     </div>
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="full blog_img_popular">
-                    <img class="img-responsive" src="{{ asset('images/p1.png') }}"  alt="#" />
-                    <h4>Financial Accounting</h4>
+                    <img class="img-responsive" src="{{ asset('images/movie-rating.jpg') }}" width="400" height="350"
+                         alt="#" />
+                    <h4>Movie Ratings</h4>
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="full blog_img_popular">
-                    <img class="img-responsive" src="{{ asset('images/p2.png') }}"  alt="#" />
-                    <h4>Managerial Accounting</h4>
+                    <img class="img-responsive" src="{{ asset('images/calender.png') }}" width="400" height="350"
+                         alt="#" />
+                    <h4>Cinemas Schedules</h4>
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="full blog_img_popular">
-                    <img class="img-responsive" src="{{ asset('images/p3.png') }}" alt="#" />
-                    <h4>Intermediate Accounting</h4>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- end section -->
-<!-- section -->
-<div class="section margin-top_50 silver_bg">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-6">
-                <div class="full float-right_img">
-                    <img src="{{ asset("images/img6.png") }}"  alt="#" />
-                </div>
-            </div>
-            <div class="col-md-6 layout_padding_2">
-                <div class="full">
-                    <div class="heading_main text_align_left">
-                        <h2><span>Apply for Admission</span></h2>
-                    </div>
-                    <div class="full">
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                            Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
-                            in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-                            sunt in culpa qui officia deserunt mollit anim id est laborum</p>
-                    </div>
-                    <div class="full">
-                        <a class="hvr-radial-out button-theme" href="#">Apply</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- end section -->
-<!-- section -->
-<div class="section layout_padding padding_bottom-0">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-6">
-                <div class="full">
-                    <div class="heading_main text_align_left">
-                        <h2><span>Reaserch</span></h2>
-                    </div>
-                    <div class="full">
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                            Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-                            reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
-                    </div>
-                    <div class="full">
-                        <a class="hvr-radial-out button-theme" href="#">See More</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="full">
-                    <img class="img-responsive" src="{{ asset('images/img7.png') }}" alt="#" />
+                    <img class="img-responsive" src="{{ asset('images/cinema-building.png') }}" width="400" height="350"
+                         alt="#" />
+                    <h4>Cinemas Locations</h4>
                 </div>
             </div>
         </div>
@@ -236,7 +182,82 @@
             <div class="col-md-12">
                 <div class="full">
                     <div class="heading_main text_align_center">
-                        <h2><span>News</span></h2>
+                        <h2><span>Popular</span> Cinemas</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="section margin-top_50 silver_bg">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="full float-right_img">
+                    {% for i in 0..4 %}
+                        <br>
+                    {% endfor %}
+                    <img src="{{ asset("images/Colisee.jpg") }}"  alt="#" />
+                </div>
+            </div>
+            <div class="col-md-6 layout_padding_2">
+                <div class="full">
+                    <div class="heading_main text_align_left">
+                        <h2><span>Le Colisee</span></h2>
+                    </div>
+                    <div class="full">
+                        <p>The Colosseum sits in the heart of Tunis, at the confluence of the three main avenues of the city.
+                            Immense by its proportions, this building was built in 1931 on the initiative of the Italian industrialist Giuseppe Canino.
+                            The sponsor of this monumental building had entrusted the work to engineer Salvatore Aghilone, who would then follow the plans of two French architects: Marcel Royer and Georges Piollenc.
+                            With a simple structure, clearly structured, the Colosseum is characteristic of the Art Deco style that had dominated in Tunis since the 1920s.
+                            Obviously, we all have something of the Colosseum in us!
+                            Today, the Colosseum continues to dominate the main avenue of Tunis.</p>
+                    </div>
+                    <div class="full">
+                        <a class="hvr-radial-out button-theme" href="#">See More</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end section -->
+<!-- section -->
+<div class="section layout_padding padding_bottom-0">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="full">
+                    <div class="heading_main text_align_left">
+                        <h2><span>Pathe City Tunis</span></h2>
+                    </div>
+                    <div class="full">
+                        <p>Pathé Tunis City, un multiplexe sur le site de Géant Tunis City,
+                            la meilleure expérience cinéma jamais proposée en Tunisie.
+                            Moderne à la pointe de la technologie avec une programmation large et tout public.</p>
+                    </div>
+                    <div class="full">
+                        <a class="hvr-radial-out button-theme" href="#">See More</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="full">
+                    <img class="img-responsive" src="{{ asset('images/pathe-cinema.jpg') }}" alt="#" />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end section -->
+<!-- section -->
+<div class="section layout_padding padding_bottom-0">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="full">
+                    <div class="heading_main text_align_center">
+                        <h2><span>Movies Trending</span></h2>
                     </div>
                 </div>
             </div>
@@ -251,16 +272,24 @@
                             <div class="row">
                                 <div class="col-lg-6 col-md-6 col-sm-12">
                                     <div class="full blog_img_popular">
-                                        <img class="img-responsive" src="{{ asset('images/img9.png') }}" alt="#" />
-                                        <h4>Technology</h4>
-                                        <p>Pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>
+                                        <img class="img-responsive" src="{{ asset('images/artemis-fowl.jpg') }}" alt="#"  height="900" />
+                                        <h4>Artemis Fowl</h4>
+                                        <p>Descended from a long line of criminals, the young and wealthy Artemis Fowl
+                                            a 12 years old and already endowed with an extraordinary intelligence
+                                            is about to wage a hard fight against the People of the Fairies,
+                                            powerful and mysterious creatures who live in an underground world and
+                                            which could well be at the origin of the disappearance of his father
+                                            2 years earlier.</p>
                                     </div>
                                 </div>
                                 <div class="col-lg-6 col-md-6 col-sm-12">
                                     <div class="full blog_img_popular">
-                                        <img class="img-responsive" src="{{ asset('images/img8.png') }}"  alt="#" />
-                                        <h4>Education</h4>
-                                        <p>Pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>
+                                        <img class="img-responsive" src="{{ asset('images/sonic.jpg') }}"  alt="#"   height="900"/>
+                                        <h4>Sonic the hedgehog</h4>
+                                        <p>Sonic's misadventures, as he attempts to navigate the complexity of life on Earth,
+                                            alongside his new best friend, Tom Wachowski, a human.
+                                            Sonic and Tom join forces to try to stop the terrible Dr. Robotnik from capturing Sonic,
+                                            who wants to use his immense power to rule the world.</p>
                                     </div>
                                 </div>
                             </div>
@@ -269,16 +298,21 @@
                             <div class="row">
                                 <div class="col-lg-6 col-md-6 col-sm-12">
                                     <div class="full blog_img_popular">
-                                        <img class="img-responsive" src="{{ asset('images/img9.png') }}" alt="#" />
-                                        <h4>Technology</h4>
-                                        <p>Pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>
+                                        <img class="img-responsive" src="{{ asset('images/star-wars.jpeg') }}" alt="#" height="900" />
+                                        <h4>Star Wars</h4>
+                                        <p>Long ago, in a distant galaxy. Civil war rages between the Galactic Empire and the Rebel Alliance.
+                                            Captured by the Emperor's shock troops led by the dark and merciless Darth Vader,
+                                            Princess Leia Organa conceals the plans of the Black Star, an invulnerable space station,
+                                            from her droid R2-D2 with the mission of handing them over to the Jedi Obi-Wan Kenobi.</p>
                                     </div>
                                 </div>
                                 <div class="col-lg-6 col-md-6 col-sm-12">
                                     <div class="full blog_img_popular">
-                                        <img class="img-responsive" src="{{ asset('images/img8.png') }}" alt="#" />
-                                        <h4>Education</h4>
-                                        <p>Pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>
+                                        <img class="img-responsive" src="{{ asset('images/bad-boys.jpg') }}" alt="#"  height="900" />
+                                        <h4>Bad boys</h4>
+                                        <p>Mike Lowrey is an inveterate seducer, heir to a fortune and police officer by passion,
+                                            his colleague and friend Marcus Burnett is a tidy man, married and father.
+                                            Their friendship does not, however, prevent them from having perfectly different methods.</p>
                                     </div>
                                 </div>
                             </div>
@@ -301,7 +335,7 @@
 </div>
 <!-- end section -->
 <!-- section -->
-<div class="section layout_padding padding_bottom-0">
+<div class="section layout_padding padding_bottom-0" id="bottom">
     <div class="container">
         <div class="row">
             <div class="col-md-12">
@@ -316,7 +350,7 @@
 </div>
 <!-- end section -->
 <!-- section -->
-<div class="section contact_section" style="background:#12385b;">
+<div class="section contact_section" style="background:#12385b;" id="bottom">
     <div class="container">
         <div class="row">
             <div class="col-lg-6 col-md-6 col-sm-12">
