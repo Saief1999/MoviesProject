@@ -22,6 +22,11 @@ class RegOwnerController extends AbstractController
      * @Route("/regowner/settings",name="regowner_settings")
      */
     public function settings(Request $request, CinemaOwner $cinemaOwner = null) {
+        $session = $this->get('session');
+        $cinemaOwneruser = $this->getUser();
+        $repository =$this->getDoctrine()->getRepository(CinemaOwner::class);
+        $cinemaOwner=$repository->findOneBy(array('user'=>$cinemaOwneruser));
+
 
         $form = $this->createForm(CinemaOwnerFormType::class, $cinemaOwner);
         $form->handleRequest($request);
