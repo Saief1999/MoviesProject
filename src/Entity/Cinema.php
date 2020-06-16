@@ -38,9 +38,19 @@ class Cinema
     private $closingTime;
 
     /**
-     * @ORM\Column(type="string", length=50)
+     * @ORM\Column(type="string", length=50, unique=true)
      */
     private $name;
+
+    /**
+     * @ORM\Column(type="text")
+     */
+    private $description;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $imagePath;
 
     public function getId(): ?int
     {
@@ -103,6 +113,30 @@ class Cinema
     public function setName(string $name): self
     {
         $this->name = $name;
+
+        return $this;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(string $description): self
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    public function getImagePath(): ?string
+    {
+        return $this->imagePath;
+    }
+
+    public function setImagePath(?string $imagePath): self
+    {
+        $this->imagePath = $imagePath;
 
         return $this;
     }

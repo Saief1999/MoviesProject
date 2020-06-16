@@ -80,7 +80,6 @@
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="{{ url('reguser_profile') }}">Profile</a>
                                     <a class="dropdown-item" href="{{ url('reguser_settings') }}">Settings</a>
-                                    <a class="dropdown-item" href="{{ url('reguser_settings') }}">{{ app.user.roles[0] }}</a>
                                     <div class="dropdown-divider"></div>
                                     <a class="dropdown-item" href={{ url("app_logout") }}>Logout</a>
 
@@ -94,7 +93,6 @@
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="{{ url('regowner_profile') }}">Profile</a>
                                     <a class="dropdown-item" href="{{ url('regowner_settings') }}">Settings</a>
-                                    <a class="dropdown-item" href="{{ url('reguser_settings') }}">{{ app.user.roles[0] }}</a>
                                     <div class="dropdown-divider"></div>
                                     <a class="dropdown-item" href={{ url("app_logout") }}>Logout</a>
                                 </div>

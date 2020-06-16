@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\CinemaOwner;
 use App\Form\CinemaOwnerFormType;
 use App\Security\EmailVerifier;
+use App\Services\ImageSaverService;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -25,7 +26,8 @@ class OwnerRegistrationController extends AbstractController
     /**
      * @Route("/owner/register", name="owner_app_register")
      */
-    public function register(Request $request, UserPasswordEncoderInterface $passwordEncoder): Response
+    public function register(Request $request, UserPasswordEncoderInterface $passwordEncoder,ImageSaverService $saver): Response
+
     {
         //$user = new User();
         //$form = $this->createForm(RegistrationFormType::class, $user);
@@ -35,6 +37,9 @@ class OwnerRegistrationController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            //saves the image under the uploads path ,then sets the path for the object
+            $saver->saveImage($owner->getCinema(),$form->get('cinema')->get('image')->getData());
+
             $basicUser=  $owner->getUser() ;
             $basicUser->setRoles(["ROLE_CIN_OWNER"]);
             // encode the plain password

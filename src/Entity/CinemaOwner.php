@@ -28,6 +28,7 @@ class CinemaOwner
     /**
      * @ORM\OneToOne(targetEntity=Cinema::class, cascade={"persist", "remove"})
      * @ORM\JoinColumn(nullable=false)
+     * @Assert\Valid
      */
     private $cinema;
 
