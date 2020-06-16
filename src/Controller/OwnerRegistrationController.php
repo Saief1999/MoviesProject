@@ -3,10 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\CinemaOwner;
-use App\Entity\RegisteredUser;
-use App\Form\CinemaFormType;
 use App\Form\CinemaOwnerFormType;
-use App\Form\RegisteredUserFormType;
 use App\Security\EmailVerifier;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -15,7 +12,6 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Mime\Address;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
-use SymfonyCasts\Bundle\VerifyEmail\Exception\VerifyEmailExceptionInterface;
 
 class OwnerRegistrationController extends AbstractController
 {
@@ -69,7 +65,7 @@ class OwnerRegistrationController extends AbstractController
             return $this->render('registration/registration-success.html.twig') ;
         }
 
-        return $this->render('cin-owner/register-owner.html.twig', [
+        return $this->render('reg_owner_registration/register-owner.html.twig', [
             'ownerRegistrationForm' => $form->createView(),
         ]);
     }
