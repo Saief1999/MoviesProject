@@ -19,7 +19,6 @@ class RegOwnerController extends AbstractController
      */
     public function settings()
     {
-        /* $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');*/
         return $this->render('reg_owner/settings.html.twig', [
         ]);
 
