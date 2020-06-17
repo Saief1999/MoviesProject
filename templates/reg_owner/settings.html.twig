@@ -5,8 +5,9 @@
 {% block body %}
     <div class="col-6">
         {{ form_start(form) }}
-{{ form_end(form) }}
-        <button type="submit" class="btn">save</button>
+        {{ form_rest(form) }}
+        <input type="submit" value="save" />
+        {{ form_end(form) }}
     </div>
 
 {% endblock %}

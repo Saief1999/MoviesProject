@@ -16,9 +16,13 @@ class RegUserController extends AbstractController
     /**
      * @Route("/reguser/profile", name="reguser_profile")
      */
-    public function profile()
-    {
+    public function profile(RegisteredUser $registereduser = null)
+    { $session = $this->get('session');
+        $user = $this->getUser();
+        $repository =$this->getDoctrine()->getRepository(RegisteredUser::class);
+        $registereduser=$repository->findOneBy(array('user'=>$user));
         return $this->render('reguser/profile.html.twig', [
+            'registereduser' => $registereduser,
         ]);
     }
 
