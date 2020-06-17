@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\CinemaOwner;
 use App\Form\CinemaOwnerFormType;
+use App\Services\ImageSaverService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
@@ -14,14 +15,21 @@ class RegOwnerController extends AbstractController
     /**
      * @Route("/regowner/profile", name="regowner_profile")
      */
-    public function profile()
-    {
-        return $this->render('reg_owner/profile.html.twig');
+    public function profile(Request $request, CinemaOwner $cinemaOwner = null)
+    {    $session = $this->get('session');
+        $cinemaOwneruser = $this->getUser();
+        $repository =$this->getDoctrine()->getRepository(CinemaOwner::class);
+        $cinemaOwner=$repository->findOneBy(array('user'=>$cinemaOwneruser));
+        $profileImage='/uploads/cinema/'.$cinemaOwner->getCinema()->getImagePath();
+        return $this->render('reg_owner/profile.html.twig', [
+            'cinemaowner' => $cinemaOwner,
+            'profileImage'=>$profileImage
+        ]);
     }
     /**
      * @Route("/regowner/settings",name="regowner_settings")
      */
-    public function settings(Request $request, CinemaOwner $cinemaOwner = null) {
+    public function settings(Request $request, CinemaOwner $cinemaOwner = null,ImageSaverService $saver) {
         $session = $this->get('session');
         $cinemaOwneruser = $this->getUser();
         $repository =$this->getDoctrine()->getRepository(CinemaOwner::class);
@@ -31,17 +39,8 @@ class RegOwnerController extends AbstractController
         $form = $this->createForm(CinemaOwnerFormType::class, $cinemaOwner);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            if($form['image']) {
-                $image = $form['image']->getData();
-                $imagePath = md5(uniqid()).$image->getClientOriginalName();
-                $destination = __DIR__.'/../../public/assets/uploads';
-                try {
-                    $image->move($destination,$imagePath);
-                    $cinemaOwner->setCinema()->setImagePath('assets/uploads/'.$imagePath);
-                } catch (FileException $fe) {
-                    echo $fe;
-                }
-            }
+            //saves the image under the uploads path ,then sets the path for the object
+            $saver->saveImage($cinemaOwner->getCinema(),$form->get('cinema')->get('image')->getData());
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($cinemaOwner);
             $entityManager->flush();
