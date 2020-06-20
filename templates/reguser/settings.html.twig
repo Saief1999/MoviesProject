@@ -4,13 +4,87 @@
 {% block title %}Settings{% endblock %}
 
 {% block body %}
-    <div class="col-6">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3 ">
+                <div class="list-group ">
+                    <a href="#" class="list-group-item list-group-item-action active">General Settings</a>
+                    <a href="#" class="list-group-item list-group-item-action">Change Email</a>
+                    <a href="#" class="list-group-item list-group-item-action">Change Password</a>
+                    <a href="#" class="list-group-item list-group-item-action">....</a>
+{#                    <a href="#" class="list-group-item list-group-item-action">Dealer</a>
+                    <a href="#" class="list-group-item list-group-item-action">Media</a>
+                    <a href="#" class="list-group-item list-group-item-action">Post</a>
+                    <a href="#" class="list-group-item list-group-item-action">Category</a>
+                    <a href="#" class="list-group-item list-group-item-action">New</a>
+                    <a href="#" class="list-group-item list-group-item-action">Comments</a>
+                    <a href="#" class="list-group-item list-group-item-action">Appearance</a>
+                    <a href="#" class="list-group-item list-group-item-action">Reports</a>
+                    <a href="#" class="list-group-item list-group-item-action">Settings</a>#}
+
+
+                </div>
+            </div>
+            <div class="col-md-9">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h4>Your Profile</h4>
+                                <hr>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                {{ form_start(form) }}
+                                    <div class="form-group row">
+                                        {{ form_label(form.user.firstName, 'First Name', {'label_attr': {'class': 'col-4 col-form-label'}}) }}
+                                        <div class="col-8">
+                                            {{ form_widget(form.user.firstName,{'attr':{'class' : 'form-control here'}}) }}
+                                        </div>
+                                    </div>
+
+                                <div class="form-group row">
+                                    {{ form_label(form.user.lastName, 'Last Name', {'label_attr': {'class': 'col-4 col-form-label'}}) }}
+                                    <div class="col-8">
+                                        {{ form_widget(form.user.lastName,{'attr':{'class' : 'form-control here'}}) }}
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    {{ form_label(form.favoriteGenres, 'Favorite Genres', {'label_attr': {'class': 'col-4 col-form-label'}}) }}
+                                    <div class="col-8">
+                                        {{ form_widget(form.favoriteGenres) }}
+                                    </div>
+                                </div>
+
+                                    <div class="form-group row">
+                                        <div class="offset-4 col-8">
+                                            <button name="submit" type="submit" class="btn btn-primary">Update My Profile</button>
+                                        </div>
+                                    </div>
+                                {{ form_end(form) }}
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+{# AMIN STUFF
+
+  <div class="col-6">
         {{ form_start(form) }}
         {{ form_rest(form) }}
         <input type="submit" value="save" />
         {{ form_end(form) }}
 
-    </div>
+    </div>#}
 
 
 {% endblock %}

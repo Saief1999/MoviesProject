@@ -36,7 +36,13 @@ class RegUserController extends AbstractController
         $registreduser=$repository->findOneBy(array('user'=>$user));
 
 
-        $form = $this->createForm(RegisteredUserFormType::class, $registreduser);
+        $form = $this->createForm(RegisteredUserFormType::class, $registreduser) ;
+        $form->get('user')
+            ->remove('agreeTerms')
+            ->remove('plainPassword')
+            ->remove('email')
+            ->remove('username') ;
+
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
