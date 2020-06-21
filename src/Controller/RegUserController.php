@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\CinemaOwner;
 use App\Entity\RegisteredUser;
 use App\Form\CinemaOwnerFormType;
+use App\Form\NewPasswordType;
 use App\Form\RegisteredUserFormType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
@@ -48,10 +49,30 @@ class RegUserController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($registreduser);
             $entityManager->flush();
-            return $this->redirectToRoute('home');
+            $this->addFlash("success","profile Changed Successfully");
+        /* Not needed right now
+         return $this->redirectToRoute('home');*/
         }
-        return $this->render('reguser/settings.html.twig', array(
+        return $this->render('reguser/settings-pages/general.html.twig', array(
             'form' => $form->createView()
         ));
     }
+
+    /**
+     * @Route("/reguser/settings/newpassword",name="reguser_newpassword")
+     */
+
+    public function changePassword()
+    {
+        $form = $this->createForm(NewPasswordType::class,null) ;
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->flush();
+            return $this->redirectToRoute('home');
+        }
+        return $this->render('reguser/settings-pages/newPassword.html.twig', array(
+            'form' => $form->createView()
+        ));
+    }
+
 }

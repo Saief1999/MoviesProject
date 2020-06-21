@@ -1,0 +1,49 @@
+{% extends 'reguser/settings-base.html.twig' %}
+{% block title %}General Settings {% endblock %}
+
+{% block settingsTitle %}
+General Settings
+{% endblock %}
+
+{% block formbody %}
+    {{ form_start(form) }}
+    <div class="form-group row">
+        {{ form_label(form.user.firstName, 'First Name', {'label_attr': {'class': 'col-4 col-form-label'}}) }}
+        <div class="col-8">
+            {{ form_widget(form.user.firstName,{'attr':{'class' : 'form-control here'}}) }}
+        </div>
+    </div>
+
+    <div class="form-group row">
+        {{ form_label(form.user.lastName, 'Last Name', {'label_attr': {'class': 'col-4 col-form-label'}}) }}
+        <div class="col-8">
+            {{ form_widget(form.user.lastName,{'attr':{'class' : 'form-control here'}}) }}
+        </div>
+    </div>
+
+    <div class="form-group row">
+        {{ form_label(form.favoriteGenres, 'Favorite Genres', {'label_attr': {'class': 'col-4 col-form-label'}}) }}
+        <div class="col-8">
+            {{ form_widget(form.favoriteGenres) }}
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <div class="offset-4 col-8">
+            <button name="submit" type="submit" class="btn btn-primary">Update My Profile</button>
+        </div>
+    </div>
+    {{ form_end(form) }}
+{% endblock %}
+
+{% block javascripts %}
+{# Change the selected element in the settings navbar to the current page#}
+    <script>
+    $(document).ready(function () {
+    changeSelectedItem()
+    });
+    function changeSelectedItem(){
+    document.getElementById("generalId").classList.add("active");
+    }
+    </script>
+{% endblock %}
