@@ -36,6 +36,14 @@
     <button class="btn btn-lg btn-primary" type="submit">
         Sign in
     </button>
+
+    <div class="d-flex justify-content-center links">
+        Don't have an account?<a href="{{ url('app_register') }}">Sign Up</a>
+    </div>
+    <div class="d-flex justify-content-center">
+        <a href="{{ url('app_forgot_password_request') }}">Forgot your password?</a>
+    </div>
+
 </form>
 </div>
 {% endblock %}

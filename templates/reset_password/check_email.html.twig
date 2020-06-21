@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Registration successfull{% endblock %}
+
+{% block body %}
+    <div class="jumbotron text-center">
+        <h1 class="display-3">Email Sent!</h1>
+        <p class="lead">An email has been sent that contains a link that you can click to reset your password. This link will expire in {{ tokenLifetime|date('g') }} hour(s).</p>
+        <hr>
+        <p>If you don't receive an email please check your spam folder or <a href="{{ path('app_forgot_password_request') }}">try again</a>.</p>
+
+        <p class="lead">
+            <a class="btn btn-primary btn-sm" href="{{ url('home') }}" role="button">Continue to Home Page</a>
+        </p>
+    </div>
+
+{% endblock %}

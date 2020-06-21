@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Registration successfull{% endblock %}
+
+{% block body %}
+    <div class="jumbotron text-center">
+        <h1 class="display-3">Your Password Has been Reset!</h1>
+        <p class="lead"><strong>Your Password has been reset successfully</strong>.you can login Now</p>
+        <hr>
+        <p>
+            Having trouble? <a href="#">Contact us</a>
+        </p>
+        <p class="lead">
+            <a class="btn btn-primary btn-sm" href="{{ url('app_login') }}" role="button">Continue to Login Page</a>
+        </p>
+    </div>
+
+
+{% endblock %}
