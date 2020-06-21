@@ -4,7 +4,9 @@ namespace App\Controller;
 
 use App\Entity\CinemaOwner;
 use App\Form\CinemaOwnerFormType;
+use App\Form\NewPasswordFormType;
 use App\Services\ImageSaverService;
+use App\Services\PasswordChanger;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
@@ -36,7 +38,14 @@ class RegOwnerController extends AbstractController
         $cinemaOwner=$repository->findOneBy(array('user'=>$cinemaOwneruser));
 
 
-        $form = $this->createForm(CinemaOwnerFormType::class, $cinemaOwner);
+        $form = $this->createForm(CinemaOwnerFormType::class, $cinemaOwner)
+            ->remove('cinema') ;
+            $form->get('user')
+                ->remove('agreeTerms')
+                ->remove('plainPassword')
+                ->remove('email')
+                ->remove('username') ;
+
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             //saves the image under the uploads path ,then sets the path for the object
@@ -46,8 +55,38 @@ class RegOwnerController extends AbstractController
             $entityManager->flush();
             return $this->redirectToRoute('home');
         }
-        return $this->render('reg_owner/settings.html.twig', array(
+        return $this->render('reg_owner/settings_pages/general.html.twig', array(
             'form' => $form->createView()
         ));
+    }
+
+
+    /**
+     * @Route("/regowner/settings/newpassword",name="regowner_newpassword")
+     */
+
+    public function changePassword(Request $request , PasswordChanger $passwordChanger)
+    {
+        $form = $this->createForm(NewPasswordFormType::class) ;
+        $form->handleRequest($request) ;
+        if ($form->isSubmitted() && $form->isValid()) {
+            $passwordChanger->changePassword($this->getUser(),$form->get('newPass')->getData());
+            $this->addFlash("successs",'Password Changed Succefully');
+        }
+        return $this->render('reg_owner/settings_pages/newPassword.html.twig', array(
+            'form' => $form->createView()
+        ));
+    }
+
+    /**
+     * @Route("/regowner/settings/yourcinema",name="regowner_cinema")
+     */
+
+    public function editCinema()
+    {
+
+
+        return $this->render("reg_owner/settings_pages/cinema.html.twig") ;
+
     }
 }

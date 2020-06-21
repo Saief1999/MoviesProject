@@ -5,7 +5,7 @@ namespace App\Controller;
 use App\Entity\CinemaOwner;
 use App\Entity\RegisteredUser;
 use App\Form\CinemaOwnerFormType;
-use App\Form\NewPasswordType;
+use App\Form\NewPasswordFormType;
 use App\Form\RegisteredUserFormType;
 use App\Services\PasswordChanger;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -52,7 +52,7 @@ class RegUserController extends AbstractController
             $entityManager->flush();
             $this->addFlash("success","profile Changed Successfully");
         }
-        return $this->render('reguser/settings-pages/general.html.twig', array(
+        return $this->render('reguser/settings_pages/general.html.twig', array(
             'form' => $form->createView()
         ));
     }
@@ -63,13 +63,13 @@ class RegUserController extends AbstractController
 
     public function changePassword(Request $request , PasswordChanger $passwordChanger)
     {
-        $form = $this->createForm(NewPasswordType::class) ;
+        $form = $this->createForm(NewPasswordFormType::class) ;
         $form->handleRequest($request) ;
         if ($form->isSubmitted() && $form->isValid()) {
             $passwordChanger->changePassword($this->getUser(),$form->get('newPass')->getData());
             $this->addFlash("successs",'Password Changed Succefully');
         }
-        return $this->render('reguser/settings-pages/newPassword.html.twig', array(
+        return $this->render('reg_owner/settings_pages/newPassword.html.twig', array(
             'form' => $form->createView()
         ));
     }

@@ -1,0 +1,47 @@
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Settings{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3 ">
+                <div class="list-group ">
+                    <a href="{{ url('regowner_settings') }}" id="generalId" class="list-group-item list-group-item-action">General Settings</a>
+                    <a href="{{ url('regowner_cinema') }}" id="changeCinId" class="list-group-item list-group-item-action">Your Cinema</a>
+                    <a href="#" id="changeEmailId" class="list-group-item list-group-item-action">Change Email</a>
+                    <a href="{{ url('regowner_newpassword') }}" id="changePasswordId" class="list-group-item list-group-item-action">Change Password</a>
+
+                </div>
+            </div>
+            <div class="col-md-9">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h4>{% block settingsTitle %}{% endblock %}</h4>
+                                <hr>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                {% for element in app.session.flashBag.get("success") %}<div class="alert alert-success">
+                                    {{ element }}
+                                    </div>{% endfor %}
+
+                                {% for element in app.session.flashBag.get("error") %}<div class="alert alert-danger">
+                                    {{ element }}
+                                    </div>{% endfor %}
+
+                                {% block formbody %}{% endblock %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
