@@ -7,6 +7,7 @@ use App\Entity\RegisteredUser;
 use App\Form\CinemaOwnerFormType;
 use App\Form\NewPasswordType;
 use App\Form\RegisteredUserFormType;
+use App\Services\PasswordChanger;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Request;
@@ -50,8 +51,6 @@ class RegUserController extends AbstractController
             $entityManager->persist($registreduser);
             $entityManager->flush();
             $this->addFlash("success","profile Changed Successfully");
-        /* Not needed right now
-         return $this->redirectToRoute('home');*/
         }
         return $this->render('reguser/settings-pages/general.html.twig', array(
             'form' => $form->createView()
@@ -62,13 +61,13 @@ class RegUserController extends AbstractController
      * @Route("/reguser/settings/newpassword",name="reguser_newpassword")
      */
 
-    public function changePassword()
+    public function changePassword(Request $request , PasswordChanger $passwordChanger)
     {
-        $form = $this->createForm(NewPasswordType::class,null) ;
+        $form = $this->createForm(NewPasswordType::class) ;
+        $form->handleRequest($request) ;
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->flush();
-            return $this->redirectToRoute('home');
+            $passwordChanger->changePassword($this->getUser(),$form->get('newPass')->getData());
+            $this->addFlash("successs",'Password Changed Succefully');
         }
         return $this->render('reguser/settings-pages/newPassword.html.twig', array(
             'form' => $form->createView()
