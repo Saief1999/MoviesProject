@@ -2,129 +2,149 @@
 
 {% block title %}Profile{% endblock %}
 {% block stylesheets %}
-<link rel="stylesheet" type="text/css" href="{{ asset('css/profile-style-regowneruser.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/profile-style-regowneruser.css') }}">
 {% endblock %}
 
 {% block body %}
     <div class="container emp-profile">
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="profile-img">
-                        <img src="{{asset(profileImage) }}" alt="{{ cinemaowner.cinema.imagePath }}" height="350" width="500"/>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="profile-img">
+                    <img src="{{ asset(profileImage) }}" alt="{{ cinemaowner.cinema.imagePath }}" height="350"
+                         width="500"/>
 
-                    </div>
                 </div>
-                <div class="col-md-6">
-                    <div class="profile-head">
-                        {% for i in 0..1 %}
-                            <br/>
-                        {% endfor %}
-                        <h1>
-                            {{ cinemaowner.cinema.name }}
-                        </h1>
-                        <h6>
-                            Owned by {{ cinemaowner.user.firstName }}
-                        </h6>
-                        <p class="proile-rating">RANKINGS : <span>DNF</span></p>
-                        <ul class="nav nav-tabs" id="myTab" role="tablist">
-                            <li class="nav-item">
-                                <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">About</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Today Schedule </a>
-                            </li>
-                        </ul>
-                    </div>
+            </div>
+            <div class="col-md-4">
+                <div class="profile-head">
+                    {% for i in 0..1 %}
+                        <br/>
+                    {% endfor %}
+                    <h1>
+                        {{ cinemaowner.cinema.name }}
+                    </h1>
+                    <h6>
+                        Owned by {{ cinemaowner.user.firstName }}
+                    </h6>
+                    <p class="proile-rating">RANKINGS : <span>DNF</span></p>
+                    <ul class="nav nav-tabs" id="myTab" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab"
+                               aria-controls="home" aria-selected="true">About</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab"
+                               aria-controls="profile" aria-selected="false">Today Schedule </a>
+                        </li>
+                    </ul>
                 </div>
-                <div class="col-md-2">
-                    <input type="submit" class="profile-edit-btn" name="btnAddMore" value="Edit Profile"/>                </div>
-                 </div>
-            <div class="row">
-                <div class="col-md-4">
-
-                    </div>
-                </div>
-                <div class="col-md-8">
-                    <div class="tab-content profile-tab" id="myTabContent">
-                        <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <label>User Id</label>
-                                </div>
-                                <div class="col-md-6">
-                                    <p>{{ cinemaowner.id }}</p>
-                                </div>
+            </div>
+            <div class="col-md-2">
+                <input type="submit" class="profile-edit-btn" name="btnAddMore" value="Edit Profile"/></div>
+        </div>
+        <div class="row">
+            <div class="col-md-8">
+                <br/>
+                <div class="tab-content profile-tab" id="myTabContent">
+                    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <label>User Id</label>
                             </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <label>Name</label>
-                                </div>
-                                <div class="col-md-6">
-                                    <p>{{ cinemaowner.user.lastName}} {{  cinemaowner.user.firstName }}</p>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <label>Email</label>
-                                </div>
-                                <div class="col-md-6">
-                                    <p>{{ cinemaowner.user.email }}</p>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <label>Phone</label>
-                                </div>
-                                <div class="col-md-6">
-                                    <p>{{ cinemaowner.cinema.phoneNumber }}</p>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <label>adress</label>
-                                </div>
-                                <div class="col-md-6">
-                                    <p>{{ cinemaowner.cinema.adress  }}</p>
-                                </div>
+                            <div class="col-md-4">
+                                <p>{{ cinemaowner.id }}</p>
                             </div>
                         </div>
-                        <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <label>Opening Time</label>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <label>Name</label>
+                            </div>
+                            <div class="col-md-4">
+                                <p>{{ cinemaowner.user.lastName }} {{ cinemaowner.user.firstName }}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <label>Email</label>
+                            </div>
+                            <div class="col-md-4">
+                                <p>{{ cinemaowner.user.email }}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <label>Phone</label>
+                            </div>
+                            <div class="col-md-4">
+                                <p>{{ cinemaowner.cinema.phoneNumber }}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <label>adress</label>
+                            </div>
+                            <div class="col-md-4">
+                                <p>{{ cinemaowner.cinema.adress }}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <label>Opening Time</label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <p>{{ cinemaowner.cinema.openingTime|date('H:i') }}</p>
+                                    </div>
                                 </div>
-                                <div class="col-md-6">
-                                    <p>{{ cinemaowner.cinema.openingTime|date('H:i') }}</p>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <label>Ticket Price </label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <p>35$/hr</p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <label>Total Films Projected Today</label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <p>dnf</p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <label>Closing Time</label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <p>{{ cinemaowner.cinema.closingTime|date('H:i') }}</p>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <label>Ticket Price </label>
-                                </div>
-                                <div class="col-md-6">
-                                    <p>35$/hr</p>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <label>Total Films Projected Today</label>
-                                </div>
-                                <div class="col-md-6">
-                                    <p>dnf</p>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <label>Closing Time</label>
-                                </div>
-                                <div class="col-md-6">
-                                    <p>{{ cinemaowner.cinema.closingTime|date('H:i')}}</p>
-                                </div>
-                            </div>
+                            <div class="col-md-4">
+                                <table class="table">
+                                    <thead>
+                                    <tr>
+                                        <th scope="col">name  </th>
+                                        <th scope="col">from</th>
+                                        <th scope="col">to</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+
+                                    </tbody>
+
+                                </table>
+
+                        </div>
                         </div>
                     </div>
                 </div>
             </div>
-
+        </div>
     </div>
+
 {% endblock %}
