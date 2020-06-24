@@ -67,8 +67,8 @@
                     <ul class="navbar-nav ">
                         <li><a class="nav-link active " href="{{ url('home') }}">Home</a></li>
                        {# <li><a class="nav-link" href="about.html">About</a></li>#}
-                        <li><a class="nav-link" href="courses.html">Cinemas</a></li>
-                        <li><a class="nav-link" href="reaserch.html">Movies</a></li>
+                        <li><a class="nav-link" href="#">Cinemas</a></li>
+                        <li><a class="nav-link" href="{{ url('movies') }}">Movies</a></li>
                         <li><a class="nav-link" href="#">News</a></li>
                         <li><a class="nav-link" href="#bottom">Contact us</a></li>
                         {% if app.user and app.user.roles[0]=="ROLE_REG_USER" %}
