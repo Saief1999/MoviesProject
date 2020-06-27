@@ -69,7 +69,7 @@ class RegUserController extends AbstractController
             $passwordChanger->changePassword($this->getUser(),$form->get('newPass')->getData());
             $this->addFlash("successs",'Password Changed Succefully');
         }
-        return $this->render('reg_owner/settings_pages/newPassword.html.twig', array(
+        return $this->render('reguser/settings_pages/newPassword.html.twig', array(
             'form' => $form->createView()
         ));
     }

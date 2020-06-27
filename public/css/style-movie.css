@@ -3,11 +3,11 @@
 }
 
 @media(min-width:960px){
-  #movies .col-md-3 .well{
-    height: 390px;
+  #movies .col-sm-3 .well{
+    height: 500px;
   }
 
-  #movies .col-md-3 img{
-    height: 240px;
+  #movies .col-sm-3 img{
+    height: 380px;
   }
 }
