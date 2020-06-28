@@ -2,6 +2,7 @@
 
 {% block title %}Profile{% endblock %}
 {% block stylesheets %}
+    {{ parent() }}
     <link rel="stylesheet" type="text/css" href="{{ asset('css/bootstrap.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('css/style-movie.css') }}">
 {% endblock %}
@@ -23,8 +24,10 @@
 {% endblock %}
 
 {% block javascripts %}
+    {{ parent() }}
     <script src="{{ asset('js/axios.min.js') }}"></script>
-    <script src="{{ asset('js/bootstrap-cyborg.min.js') }}"></script>
-    <script src="{{ asset('js/jquery-3.2.1.min.js') }}"></script>
+{#      <script src="{{ asset('js/bootstrap-cyborg.min.js') }}"></script>
+        <script src="{{ asset('js/jquery-3.2.1.min.js') }}"></script>#}
     <script type="text/javascript" src="{{ asset('js/moviesgrabber.js') }}"></script>
+
 {% endblock %}
