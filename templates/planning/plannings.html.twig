@@ -1,0 +1,59 @@
+{% extends 'base.html.twig' %}
+
+
+{% block title %}
+My Plannings
+{% endblock %}
+
+{% block body %}
+    <div class="container mt-md-4">
+        <form action="{{ url('add_planning') }}">
+        <button class="btn btn-primary mb-1" type="submit">+ Add Planning</button>
+        </form>
+
+        {% for el in app.session.flashBag.get("success") %}
+            <div class="alert alert-success">{{ el }}</div>
+        {% endfor %}
+
+        {% for el in app.session.flashBag.get("error") %}
+            <div class="alert alert-danger">{{ el }}</div>
+        {% endfor %}
+
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Starting Date</th>
+                <th scope="col">Ending Date</th>
+                <th scope="col">Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for el in t %}
+            <tr>
+                <th scope="row">{{ el.id }}</th>
+                <td>{{ el.startingDate.format("d-m-Y") }}</td>
+                <td>{{ t2[loop.index0]}}</td>
+                <td>
+                    <i class="fa fa-calendar  fa-2x" aria-hidden="true"></i>
+                    &nbsp;&nbsp;<i class="fa fa-trash  fa-2x" aria-hidden="true"></i>
+                </td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+        {% if nbpages is defined %}
+             {% if nbpages >0 %}
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination">
+                        {% for p in 1..nbpages %}
+                            <li class="page-item"><a class="page-link" href="{{ path("myplannings",{"page":p}) }}">{{ p }}</a></li>
+                        {% endfor %}
+                    </ul>
+                </nav>
+                {% endif %}
+        {% endif %}
+
+    </div>
+{% endblock %}

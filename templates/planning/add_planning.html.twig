@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container mt-md-4">
+        {{ form_start(form) }}
+        {{ form_row(form.startingDate) }}
+
+        {{ form_end(form) }}
+
+    </div>
+{% endblock %}
+{% block javascripts %}
+{{ parent() }}
+
+    <script>
+    $(document).ready(function () {
+    initDate();
+    });
+    function initDate(){
+        let today= new Date() ;
+        document.getElementById('planning_form_startingDate_day').getElementsByTagName('option')[today.getDate()-1].selected = true ;
+        document.getElementById('planning_form_startingDate_month').getElementsByTagName('option')[today.getMonth()].selected = true ;
+        document.getElementById('planning_form_startingDate_year').getElementsByTagName('option')[1].selected = true ;
+        //selection always starts with 1 year in advance
+    }
+</script>
+{% endblock %}
