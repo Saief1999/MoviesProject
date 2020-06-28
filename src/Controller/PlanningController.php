@@ -16,9 +16,13 @@ class PlanningController extends AbstractController
     public function planning(Planning $planning=null)
     {
         if ($planning==null) return $this->render("404.html.twig") ;
-        return $this->render('planning/index.html.twig', [
-            'controller_name' => 'PlanningController',
-        ]);
+        else {
+
+            return $this->render('planning/planning.html.twig', [
+                'controller_name' => 'PlanningController',
+            ]);
+        }
+
     }
 
     /**

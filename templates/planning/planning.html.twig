@@ -7,7 +7,15 @@
     <link rel="stylesheet" href="{{ asset('css/planning/style-unmini.css') }}">
 {% endblock %}
 {% block body %}
-    <h1 class="text-xl">Schedule Template</h1>
+{#live search#}
+  <div class="container-fluid">
+
+    <form>
+      <input type="text" size="30" onkeyup="showResult(this.value)">
+      <div id="livesearch" style="border: 1px solid rgb(165, 172, 178);"></div>
+    </form>
+  </div>
+{#  live search end#}
 
   <div class="cd-schedule cd-schedule--loading margin-top-lg margin-bottom-lg js-cd-schedule">
     <div class="cd-schedule__timeline">
@@ -235,7 +243,10 @@
 {% endblock %}
 
 {% block javascripts %}
+  {{ parent() }}
   <script src="{{ asset('js/planning/util.js') }}"></script> <!-- util functions included in the CodyHouse framework -->
   <script src="{{ asset('js/planning/main.js') }}"></script>
+  <script src="{{ asset('js/axios.min.js') }}"></script>
+  <script src="{{ asset('js/planning/planning-movie-grabber.js') }}"></script>
 
 {% endblock %}
