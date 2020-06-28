@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\MovieRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -18,108 +20,130 @@ class Movie
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=75)
+     * @ORM\Column(type="string", length=255)
      */
-    private $MovieName;
+    private $name;
 
     /**
-     * @ORM\Column(type="date")
+     * @ORM\Column(type="text", nullable=true)
      */
-    private $ReleaseDate;
-
-    /**
-     * @ORM\Column(type="float", nullable=true)
-     */
-    private $Rating;
-
-    /**
-     * @ORM\Column(type="string", length=20, nullable=true)
-     */
-    private $RunTime;
+    private $plot;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $ProductionCompanies;
+    private $tmdbLink;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\OneToMany(targetEntity=MoviePlanning::class, mappedBy="movie", orphanRemoval=true)
      */
-    private $Plot;
+    private $moviePlannings;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=MovieGenre::class)
+     */
+    private $genres;
+
+    public function __construct()
+    {
+        $this->moviePlannings = new ArrayCollection();
+        $this->genres = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getMovieName(): ?string
+    public function getName(): ?string
     {
-        return $this->MovieName;
+        return $this->name;
     }
 
-    public function setMovieName(string $MovieName): self
+    public function setName(string $name): self
     {
-        $this->MovieName = $MovieName;
-
-        return $this;
-    }
-
-    public function getReleaseDate(): ?\DateTimeInterface
-    {
-        return $this->ReleaseDate;
-    }
-
-    public function setReleaseDate(\DateTimeInterface $ReleaseDate): self
-    {
-        $this->ReleaseDate = $ReleaseDate;
-
-        return $this;
-    }
-
-    public function getRating(): ?float
-    {
-        return $this->Rating;
-    }
-
-    public function setRating(?float $Rating): self
-    {
-        $this->Rating = $Rating;
-
-        return $this;
-    }
-
-    public function getRunTime(): ?string
-    {
-        return $this->RunTime;
-    }
-
-    public function setRunTime(?string $RunTime): self
-    {
-        $this->RunTime = $RunTime;
-
-        return $this;
-    }
-
-    public function getProductionCompanies(): ?string
-    {
-        return $this->ProductionCompanies;
-    }
-
-    public function setProductionCompanies(?string $ProductionCompanies): self
-    {
-        $this->ProductionCompanies = $ProductionCompanies;
+        $this->name = $name;
 
         return $this;
     }
 
     public function getPlot(): ?string
     {
-        return $this->Plot;
+        return $this->plot;
     }
 
-    public function setPlot(string $Plot): self
+    public function setPlot(?string $plot): self
     {
-        $this->Plot = $Plot;
+        $this->plot = $plot;
+
+        return $this;
+    }
+
+    public function getTmdbLink(): ?string
+    {
+        return $this->tmdbLink;
+    }
+
+    public function setTmdbLink(?string $tmdbLink): self
+    {
+        $this->tmdbLink = $tmdbLink;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|MoviePlanning[]
+     */
+    public function getMoviePlannings(): Collection
+    {
+        return $this->moviePlannings;
+    }
+
+    public function addMoviePlanning(MoviePlanning $moviePlanning): self
+    {
+        if (!$this->moviePlannings->contains($moviePlanning)) {
+            $this->moviePlannings[] = $moviePlanning;
+            $moviePlanning->setMovie($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMoviePlanning(MoviePlanning $moviePlanning): self
+    {
+        if ($this->moviePlannings->contains($moviePlanning)) {
+            $this->moviePlannings->removeElement($moviePlanning);
+            // set the owning side to null (unless already changed)
+            if ($moviePlanning->getMovie() === $this) {
+                $moviePlanning->setMovie(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|MovieGenre[]
+     */
+    public function getGenres(): Collection
+    {
+        return $this->genres;
+    }
+
+    public function addGenre(MovieGenre $genre): self
+    {
+        if (!$this->genres->contains($genre)) {
+            $this->genres[] = $genre;
+        }
+
+        return $this;
+    }
+
+    public function removeGenre(MovieGenre $genre): self
+    {
+        if ($this->genres->contains($genre)) {
+            $this->genres->removeElement($genre);
+        }
 
         return $this;
     }
