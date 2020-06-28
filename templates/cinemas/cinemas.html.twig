@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+{% block title %}Cinemas{% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/bootstrap.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/style-cinema.css') }}">
+{% endblock %}
+{% block body %}
+    <body>
+    <div class="container">
+        <div class="jumbotron">
+            <h3 class="text-center">Search For a Cinema</h3>
+            <form id="searchForm">
+                <input type="text" class="form-control" id="searchText" placeholder="Search Cinema....">
+            </form>
+        </div>
+        <div class="containercinema">
+            <ul>
+                {%  for cinema in cinemas %}
+                <li>
+                    <img src="{{ asset('uploads/cinema/'~cinema.imagePath) }}" width="200" height="200">
+                    <div>
+                        <h3>{{ cinema.name }}</h3>
+                        <p>{{ cinema.description }}</p>
+                        <a href="{{ url('cinema',{'id': cinema.id  }) }} " class="astyle">Learn More</a>
+                    </div>
+
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+    </body>
+{% endblock %}
+
+

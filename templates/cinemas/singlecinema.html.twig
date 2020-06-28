@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<body>
+    <div class="col">
+        <img src="{{ asset('uploads/cinema/'~cinema.imagePath) }}" width="400" height="400">
+    </div>
+    <div class="col">
+        <table>
+            <tr>
+                <td>Name</td>
+                <td>{{ cinema.name }}</td>
+            </tr>
+            <tr>
+                <td>Description</td>
+                <td>{{ cinema.description }}</td>
+            </tr>
+            <tr>
+                <td>Adress:</td>
+                <td>{{ cinema.adress }}</td>
+            </tr>
+            <tr>
+                <td>Opening time</td>
+                <td>{{ cinema.openingTime.format('H:i:s') }}</td>
+            </tr>
+            <tr>
+                <td>Closing time</td>
+                <td>{{ cinema.closingTime.format('H:i:s') }}</td>
+            </tr>
+            <tr>
+                <td>Phone Number</td>
+                <td>{{ cinema.phoneNumber }}</td>
+            </tr>
+        </table>
+    </div>
+</body>
+{% endblock %}
+
+{% block title %}
+
+{% endblock %}
+
