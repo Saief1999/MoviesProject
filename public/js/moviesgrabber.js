@@ -44,7 +44,7 @@ function getMovie(){
   axios.get("https://api.themoviedb.org/3/movie/" + movieId + "?api_key=98325a9d3ed3ec225e41ccc4d360c817")
     .then(function (response) {
     let movie = response.data;
-    console.log(movie) ;
+/*    console.log(movie) ;*/
         let poster= (movie.poster_path!=null)?"https://image.tmdb.org/t/p/w500"+movie.poster_path:"/images/altImageMovie/notfoundLast.png" ;
 
         let genres = "" ;
