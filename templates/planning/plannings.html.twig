@@ -35,8 +35,8 @@ My Plannings
                 <td>{{ el.startingDate.format("d-m-Y") }}</td>
                 <td>{{ t2[loop.index0]}}</td>
                 <td>
-                    <i class="fa fa-calendar  fa-2x" aria-hidden="true"></i>
-                    &nbsp;&nbsp;<i class="fa fa-trash  fa-2x" aria-hidden="true"></i>
+                    <a href="{{ url('planning',{'id' : el.id}) }}"><i class="fa fa-calendar  fa-2x" aria-hidden="true"></i></a>
+                    &nbsp;&nbsp;<a href="{{ url('remove_planning',{id : el.id}) }}"><i class="fa fa-trash  fa-2x" aria-hidden="true"></i></a>
                 </td>
             </tr>
             {% endfor %}
