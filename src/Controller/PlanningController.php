@@ -11,7 +11,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class PlanningController extends AbstractController
 {
     /**
-     * @Route("/regowner/plannings/{id}", name="planning")
+     * @Route("/regowner/planning/{id}", name="planning")
      */
     public function planning(Planning $planning=null)
     {
