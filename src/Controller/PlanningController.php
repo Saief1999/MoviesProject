@@ -2,10 +2,19 @@
 
 namespace App\Controller;
 
+use App\Entity\Movie;
+use App\Entity\MoviePlanning;
 use App\Entity\Planning;
+use App\Form\MoviePlanningFormType;
 use App\Form\PlanningFormType;
+use App\Repository\MovieGenreRepository;
+use App\Repository\MoviePlanningRepository;
+use App\Repository\MovieRepository;
+use App\Services\ScheduleShufflerService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class PlanningController extends AbstractController
@@ -13,14 +22,26 @@ class PlanningController extends AbstractController
     /**
      * @Route("/regowner/planning/{id}", name="planning")
      */
-    public function planning(Planning $planning=null)
+    public function planning(ScheduleShufflerService $shuffler,Planning $planning=null)
     {
         if ($planning==null) return $this->render("404.html.twig") ;
         else {
 
+            /**
+             * The schedule is a table like this :
+             * ["Monday"=>[movieplanning1,movieplanning2...],"Tuesday"=>[],....]
+             */
+            $schedule = array();
+            // init the 7 days
+            $shuffler->init($schedule,$planning);
+            $plannings=$planning->getMoviePlannings() ;
+            foreach ($plannings as $el)
+            {   $elDay=$el->getStartingTime()->format("Y-m-d");
+                $schedule[$elDay][]=$el ;
+            }
+            $shuffler->shuffle($schedule);
             return $this->render('planning/planning.html.twig', [
-                'controller_name' => 'PlanningController',
-            ]);
+                "schedule"=>$schedule,"id"=>$planning->getId()]);
         }
 
     }
@@ -66,7 +87,7 @@ class PlanningController extends AbstractController
     }
 
     /**
-     * @Route("/regowner/plannings/remove/{id}",name="remove_planning")
+     * @Route("/regowner/planning/remove/{id}",name="remove_planning")
      */
     public function removePlanning(EntityManagerInterface $em ,Planning $planning=null)
     {
@@ -78,5 +99,85 @@ class PlanningController extends AbstractController
             $this->addFlash('success',"Planning deleted successfully");
             return $this->redirectToRoute("myplannings",['p'=>1]);
         }
+    }
+
+    /**
+     * @Route("/regowner/test/{id}",name="movie_add_test")
+     * @param MoviePlanning $moviePlanning
+     * @param EntityManagerInterface $em
+     * @param MoviePlanningRepository $repository
+     * @return Response
+     *
+     * Adds a movie  to a planning
+     */
+
+    public function addMovieToPlanning(EntityManagerInterface $em,MoviePlanningRepository $repository,MoviePlanning $moviePlanning)
+    :Response
+    {
+        return $this->json(["code"=>200,"msg"=>"Movie Added"],200) ;
+    }
+
+    /**
+     *
+     * @Route("/regowner/planning/{id}/addmovie",name="movie_add")
+     */
+
+    public function addMovie(Request $request ,EntityManagerInterface $em,MovieRepository $repository,Planning $planning=null)
+    {
+        if ($planning==null) return $this->render('404.html.twig') ;
+        else
+        {
+            $validation=false ;
+
+            $moviePlanning = New MoviePlanning() ;
+            $moviePlanning ->setPlanning($planning) ;
+
+            $startingTime=$request->request->get("_sTime");
+            $endingTime=$request->request->get("_eTime") ;
+            $day = $request->request->get("_day") ;
+            $search=$request->request->get("search") ;
+            $plot =$request->request->get("_plot") ;
+            $link=$request->request->get("_link") ;
+
+            $weekdays=[];
+            $first_day=$planning->getStartingDate()->format("Y-m-d");
+            for ($i=0;$i<7;$i++)
+            {
+                $date = date('Y-m-d',strtotime($first_day ."+".$i." days")) ;
+                $weekdays[$i]=(new \DateTime($date))->format("l");
+            }
+            if (in_array($day,$weekdays)) {
+                $validation=true ;
+
+                $date = date('Y-m-d',strtotime($first_day ."+".array_search($day,$weekdays)." days")) ;
+                $startingDate = $date." ".$startingTime;
+                $endingDate   = $date." ".$endingTime;
+
+                $moviePlanning->setStartingTime(new \DateTime($startingDate));
+                $moviePlanning->setEndingTime(new \DateTime($endingDate));
+
+                $movie=$repository->findOneBy(["tmdbLink"=>$link]) ;
+                if ($movie==null )
+                   {$movie = new Movie();
+                    $movie->setName($search);
+                    $movie->setPlot($plot);
+                    $movie->setTmdbLink($link);}
+                $moviePlanning->setMovie($movie);
+            }
+            if ($validation)
+            {
+                $em->persist($moviePlanning);
+                $em->flush();
+                $status = "success";
+                $message = "new movie saved";
+                $code=200 ;
+            }
+            else {
+                $status = "failure";
+                $message = "form error";
+                $code=400 ;
+            }return $this->json(["status"=>$status,"message"=>$message],$code) ;
+        }
+
     }
 }

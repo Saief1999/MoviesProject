@@ -34,7 +34,7 @@ class MoviePlanning
     private $planning;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Movie::class, inversedBy="moviePlannings")
+     * @ORM\ManyToOne(targetEntity=Movie::class, inversedBy="moviePlannings",cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $movie;
