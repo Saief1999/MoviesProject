@@ -14,26 +14,24 @@ use App\Services\MessageAddService;
 class CinemasController extends AbstractController
 {
     /**
-     * @Route("/cinemas", name="cinemas")
-     */
-    public function index()
-    {
-        return $this->render('cinemas/cinemas.html.twig', [
-            'controller_name' => 'CinemasController',
-        ]);
-    }
-
-    /**
-     * @Route("/cinema/{id?0}", name="cinema")
+     * @Route("/cinema/{id?0}/", name="cinema")
      */
     public function cinemasinfo(Cinema $cinema = null,MessageAddService $comment)
     {
-        //add_comment.php
-     //   $comment->addmessage();
-      //  $comment->fetchmessage();
+        $comment->fetchmessage();
 
-        return $this->render('cinemas/singlecinema.html.twig', ['cinema' => $cinema]);
+     return $this->render('cinemas/singlecinema.html.twig', ['cinema' => $cinema]);
     }
+    /**
+     * @Route("/cinema/{id?0}/add", name="cinemaadd")
+     */
+    public function cinemaadd(Cinema $cinema = null,MessageAddService $comment)
+    {
+       // $comment->addmessage();
+
+
+    }
+
 
     /**
      * @Route("/cinemas", name="cinemas")
