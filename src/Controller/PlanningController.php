@@ -138,7 +138,7 @@ class PlanningController extends AbstractController
             $search=$request->request->get("search") ;
             $plot =$request->request->get("_plot") ;
             $link=$request->request->get("_link") ;
-
+            $imdb=$request->request->get("_link_imdb");
             $weekdays=[];
             $first_day=$planning->getStartingDate()->format("Y-m-d");
             for ($i=0;$i<7;$i++)
@@ -161,7 +161,8 @@ class PlanningController extends AbstractController
                    {$movie = new Movie();
                     $movie->setName($search);
                     $movie->setPlot($plot);
-                    $movie->setTmdbLink($link);}
+                    $movie->setTmdbLink($link);
+                    $movie->setImdbLink($imdb); }
                 $moviePlanning->setMovie($movie);
             }
             if ($validation)
@@ -179,5 +180,18 @@ class PlanningController extends AbstractController
             }return $this->json(["status"=>$status,"message"=>$message],$code) ;
         }
 
+    }
+
+    /**
+     *
+     * @Route("/regowner/planning/showplot/{id}",name="movie_plot")
+     */
+
+    public function fetchPlot(EntityManagerInterface $em ,$id)
+    {
+            $mplanning = $em->find(MoviePlanning::class, $id);
+            if ( $mplanning== null) return $this->render('404.html.twig');
+                /*else return new Response('<div class="cd-schedule-modal__event-info"><div>'.$mplanning->getMovie()->getPlot().'</div></div>') ;*/
+               return $this->render("planning/movie.html.twig",["plot"=>$mplanning->getMovie()->getPlot(),"imdb"=>$mplanning->getMovie()->getImdbLink()]) ;
     }
 }

@@ -20,7 +20,7 @@
       box-sizing: border-box;
       z-index: 1001;
     }
-    #tmdb_plot,#tmdb_link_id,.tmdb_link{
+    #tmdb_plot,#tmdb_link_id,#imdb_link_id,.imdb_link,.tmdb_link{
     display:none;
     }
   </style>
@@ -37,6 +37,7 @@
           <div>
             <textarea id="tmdb_plot" name="_plot"></textarea>
             <input type="text" name="_link" id="tmdb_link_id">
+            <input type="text" name="_link_imdb" id="imdb_link_id">
           </div>
         </div>
         <div class="col-sm-2">
@@ -119,7 +120,7 @@
           <ul>
             {% for element in day %}
             <li class="cd-schedule__event">
-              <a data-start="{{ element.startingTime.format("H:i") }}" data-end="{{ element.endingTime.format("H:i") }}" data-content="event-abs-circuit" data-event="event-1" href="#0">
+              <a data-start="{{ element.startingTime.format("H:i") }}" data-end="{{ element.endingTime.format("H:i") }}" data-content="showplot/{{ element.id }}" data-event="event-1" href="#0">
                 <em class="cd-schedule__name">{{ element.movie.name }}</em>
               </a>
             </li>
@@ -156,7 +157,7 @@
 {% block javascripts %}
   {{ parent() }}
   <script src="{{ asset('js/planning/util.js') }}"></script> <!-- util functions included in the CodyHouse framework -->
-  <script src="{{ asset('js/planning/main.js') }}"></script>
+  <script src="{{ asset('js/planning/main1.js') }}"></script>
   <script src="{{ asset('js/axios.min.js') }}"></script>
   <script src="{{ asset('js/planning/planning-movie-grabber.js') }}"></script>
   <script src="{{ asset('js/planning/mainAdd.js') }}"></script>

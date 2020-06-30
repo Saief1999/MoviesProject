@@ -44,6 +44,11 @@ class Movie
      */
     private $genres;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $imdbLink;
+
     public function __construct()
     {
         $this->moviePlannings = new ArrayCollection();
@@ -144,6 +149,18 @@ class Movie
         if ($this->genres->contains($genre)) {
             $this->genres->removeElement($genre);
         }
+
+        return $this;
+    }
+
+    public function getImdbLink(): ?string
+    {
+        return $this->imdbLink;
+    }
+
+    public function setImdbLink(?string $imdbLink): self
+    {
+        $this->imdbLink = $imdbLink;
 
         return $this;
     }
