@@ -6,74 +6,103 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('css/style-singlecinema.css') }}">
 {% endblock %}
 {% block body %}
-<body>
+    <body>
     <div class="container emp-profile">
-            <div class="row" style="background: #0b1c2c;">
-                <div class="col-md-4">
-                    <div class="profile-img">
-                        <img src="{{ asset('uploads/cinema/'~cinema.imagePath) }}" width="400" height="400" alt=""/>
-                    </div>
-                </div>
-                <div class="col-md-6" style="margin-top: 20">
-                    <div class="profile-head">
-                        <h3>
-                            {{ cinema.name }}
-                        </h3>
-                        <h6>
-                            {{ cinema.adress }}
-                        </h6>
-                    </div>
+        <div class="row" style="background: #0b1c2c;">
+            <div class="col-md-4">
+                <div class="profile-img">
+                    <img src="{{ asset('uploads/cinema/'~cinema.imagePath) }}" width="400" height="400" alt=""/>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-md-8">
-                    <div class="tab-content profile-tab" id="myTabContent">
-                        <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab" style="padding-left: 50px;padding-top: 20px">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <label>Name</label>
-                                </div>
-                                <div class="col-md-6">
-                                    <p>{{ cinema.name }}</p>
-                                </div>
+            <div class="col-md-6" style="margin-top: 20px">
+                <div class="profile-head" style="color:whitesmoke">
+                    <h3>
+                        {{ cinema.name }}
+                    </h3>
+                    <h6>
+                        {{ cinema.adress }}
+                    </h6>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-8">
+                <div class="tab-content profile-tab" id="myTabContent">
+                    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab" style="padding-left: 50px;padding-top: 20px">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Name</label>
                             </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <label>Adress</label>
-                                </div>
-                                <div class="col-md-6">
-                                    <p>{{ cinema.adress }}</p>
-                                </div>
+                            <div class="col-md-6">
+                                <p>{{ cinema.name }}</p>
                             </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <label>Opening Time</label>
-                                </div>
-                                <div class="col-md-6">
-                                    <p>{{cinema.openingTime.format('H:i:s')}}</p>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <label>Closing Time</label>
-                                </div>
-                                <div class="col-md-6">
-                                    <p>{{ cinema.closingTime.format('H:i:s') }}</p>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <label>Phone</label>
-                                </div>
-                                <div class="col-md-6">
-                                    <p>{{ cinema.phoneNumber }}</p>
-                                </div>
-                            </div>
-
                         </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Adress</label>
+                            </div>
+                            <div class="col-md-6">
+                                <p>{{ cinema.adress }}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Opening Time</label>
+                            </div>
+                            <div class="col-md-6">
+                                <p>{{cinema.openingTime.format('H:i:s')}}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Closing Time</label>
+                            </div>
+                            <div class="col-md-6">
+                                <p>{{ cinema.closingTime.format('H:i:s') }}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Phone</label>
+                            </div>
+                            <div class="col-md-6">
+                                <p>{{ cinema.phoneNumber }}</p>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
             </div>
+        </div>
     </div>
-</body>
+    <div class="comment-section">
+        <br />
+        <h2 align="center"><a href="#">Comment System using PHP and Ajax</a></h2>
+        <br />
+        <div class="container">
+            <form method="POST" id="comment_form">
+                <div class="form-group">
+                    <input type="text" name="comment_name" id="comment_name" class="form-control" placeholder="Enter Name" />
+                </div>
+                <div class="form-group">
+                    <textarea name="comment_content" id="comment_content" class="form-control" placeholder="Enter Comment" rows="5"></textarea>
+                </div>
+                <div class="form-group">
+                    <input type="hidden" name="comment_id" id="comment_id" value="0" />
+                    <input type="submit" name="submit" id="submit" class="btn btn-info" value="Submit" />
+                </div>
+            </form>
+            <span id="comment_message"></span>
+            <br />
+            <div id="display_comment"></div>
+        </div>
+
+    </div>
+    </body>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript" src="{{ asset('js/comment.js') }}"></script>
+    <script type="text/javascript">
+    </script>
 {% endblock %}
