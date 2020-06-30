@@ -1,59 +1,60 @@
-function showResult(searchText)
-{
-    if (searchText.length!==0)
-    {axios.get("https://api.themoviedb.org/3/search/movie?api_key=98325a9d3ed3ec225e41ccc4d360c817&language=en-US&query=" + searchText)
-        .then(function (response) {
-            let movies = response.data.results;
-            let output = ``;
-            $.each(movies, (index, movie) => {
-                output+=`<a>${movie.title}</a><br/>`
-            });
-            if (output.length===0) output+="nothing Found" ;
-            $('#livesearch').html(output);
-        })
-        .catch(function (error) {
-            console.log(error);
-        });}
-    else  $('#livesearch').html(``);
-}
+$(document).ready(function(){
 
-function getMovies(searchText,page=1){
-    //make request to api using axios
-    // Make a request for a user with a given ID
-    axios.get("https://api.themoviedb.org/3/search/movie?api_key=98325a9d3ed3ec225e41ccc4d360c817&language=en-US&page=+"+page+"&query=" + searchText)
-        .then(function (response) {
-            let movies = response.data.results;
-            let nbpages =response.data.total_pages ;
-            console.log(movies);
-            let output = '';
-            $.each(movies, (index, movie) => {
-                let poster= (movie.poster_path!=null)?"https://image.tmdb.org/t/p/w500"+movie.poster_path:"/images/altImageMovie/notfoundLast.png" ;
-                output+=`
-          <div class="col-sm-3">
-            <div class="well text-center">
-              <img src="${poster}" alt="image">
-              <h5>${movie.title}</h5>
-              <a onclick="movieSelected('${movie.id}')" class="btn btn-primary" href="movie">Movie Details</a>
-            </div>
-          </div>
-        `;
-            });
+    let att = document.createAttribute("tmdbLink");
 
-            output+=`
-        <div class="container row">
-         <nav aria-label="Page navigation ">
-        <ul class="pagination">`;
+    $('#search').keyup(function()
+    {   showResult($(this).val()) ;
+     }).focus(function() {
+        showResult($(this).val()) ;
+    }).blur(function () {
+        clearSearch();
+    }) ;
 
-            let customClass="" ;
-            for(let i=1 ; i<=nbpages ;i++)
-            {
-                customClass="page-item"+((i==page)? " active":"");
-                output+=`<li class="${customClass}"><a class="page-link" onclick="pageSelected('${searchText}', '${i}')" href="movies" >${i}</a></li>`
-            }
-            output+=`</ul></div>` ;
-            $('#movies').html(output);
-        })
-        .catch(function (error) {
-            console.log(error);
-        });
-}
+    $('#result').on('mousedown', 'li', function () {
+
+        let title=($(this).find(".movie_title").text()) ;
+        $('#search').val(title);
+       let link=$(this).find(".tmdb_link").text() ;
+        axios.get('https://api.themoviedb.org/3/movie/'+link+'?api_key=98325a9d3ed3ec225e41ccc4d360c817&language=en-US')
+            .then(function (response) {
+                let  movie=response.data;
+                let plot = movie.overview ;
+
+                $("#tmdb_link_id").val(link);
+                $("#tmdb_plot").html(plot) ;
+            })
+            .catch(function (error) {
+                    console.log(error);
+                });
+
+        clearSearch()
+    });
+
+    function showResult(searchText) {
+        if (searchText.length !== 0) {
+            axios.get("https://api.themoviedb.org/3/search/movie?api_key=98325a9d3ed3ec225e41ccc4d360c817&language=en-US&query=" + searchText)
+                .then(function (response) {
+                    let movies = response.data.results;
+                    let output = ``;
+                    $.each(movies, (index, movie) => {
+                        let poster = (movie.poster_path != null) ? "https://image.tmdb.org/t/p/w500" + movie.poster_path : "/images/altImageMovie/notfoundLast.png";
+
+                        output += '<li class="list-group-item list-group-item-action"><img src="' + poster + '" height="80" width="40" class="img-thumbnail" alt="movie"/>'+
+                            '<span class="movie_title"> '+ movie.title +'</span><span class="tmdb_link">'+movie.id+'</span></li>';
+                    });
+                    $('#result').html(output);
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+        } else clearSearch()}
+
+
+    function clearSearch() {
+        $('#result').html(``)
+    }
+
+    });
+
+
+

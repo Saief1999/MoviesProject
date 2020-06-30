@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "bootstrap-select": "^1.13.17"
+    "bootstrap-select": "^1.13.17",
+    "requirejs": "^2.3.6"
   }
 }

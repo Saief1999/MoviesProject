@@ -7,16 +7,72 @@
     <link rel="stylesheet" href="{{ asset('css/planning/style-unmini.css') }}">
 {% endblock %}
 {% block body %}
-{#live search#}
-  <div class="container-fluid">
 
-    <form>
-      <input type="text" size="30" onkeyup="showResult(this.value)">
-      <div id="livesearch" style="border: 1px solid rgb(165, 172, 178);"></div>
-    </form>
-  </div>
+  {% if app.user and app.user.roles[0] == "ROLE_CIN_OWNER" %}
+
+  {#live search#}
+  <style>
+    #result {
+  /*    position: absolute;*/
+      cursor: pointer;
+      overflow-y: auto;
+      max-height: 250px;
+      box-sizing: border-box;
+      z-index: 1001;
+    }
+    #tmdb_plot,#tmdb_link_id,.tmdb_link{
+    display:none;
+    }
+  </style>
+
+    <div class="container mt-md-4" id="js-searchbox">
+      <form method="POST" action="{{ url('movie_add',{"id" : id}) }}" autocomplete="off">
+      <div class="row">
+        <div class="col-sm-4">
+          <label for="search">Add Your Movie</label>
+          <div>
+            <input type="text" name="search" id="search" placeholder="Search Movie..." class="form-control"/>
+          </div>
+          <ul class="list-group" id="result"></ul>
+          <div>
+            <textarea id="tmdb_plot" name="_plot"></textarea>
+            <input type="text" name="_link" id="tmdb_link_id">
+          </div>
+        </div>
+        <div class="col-sm-2">
+          <label for="date_choice">Choose Date</label>
+          <select class="form-control" id="date_choice" name="_day">
+            <option selected="selected">Select Day</option>
+            <option>Monday</option>
+            <option>Tuesday</option>
+            <option>Wednesday</option>
+            <option>Thursday</option>
+            <option>Friday</option>
+            <option>Saturday</option>
+            <option>Sunday</option>
+          </select>
+        </div>
+        <div class="col-sm-2">
+         <label for="starting_time" >Starting Time</label>
+         <input class="form-control" type="time" value="13:45:00" id="starting_time" name="_sTime">
+        </div>
+        <div class="col-sm-2">
+         <label for="ending_time" >Ending Time</label>
+         <input class="form-control" type="time" value="13:45:00" id="ending_time" name="_eTime">
+        </div>
+      </div>
+      <div class="mt-2">
+        <div class="col-sm-2">
+          <input type="submit" id="js-add" class="btn btn-primary" value="Add">
+        </div>
+      </div>
+      </form>
+    </div>
 {#  live search end#}
 
+{% endif %}
+
+{#  Starting putting elements #}
   <div class="cd-schedule cd-schedule--loading margin-top-lg margin-bottom-lg js-cd-schedule">
     <div class="cd-schedule__timeline">
       <ul>
@@ -56,169 +112,24 @@
 
     <div class="cd-schedule__events">
       <ul>
+        {% for key, day in schedule %}
         <li class="cd-schedule__group">
-          <div class="cd-schedule__top-info"><span>Monday</span></div>
+          <div class="cd-schedule__top-info"><span>{{ key }}</span></div>
 
           <ul>
-
+            {% for element in day %}
             <li class="cd-schedule__event">
-              <a data-start="08:00" data-end="09:00" data-content="event-abs-circuit" data-event="event-1" href="#0">
-                <em class="cd-schedule__name">Abs Circuit</em>
+              <a data-start="{{ element.startingTime.format("H:i") }}" data-end="{{ element.endingTime.format("H:i") }}" data-content="event-abs-circuit" data-event="event-1" href="#0">
+                <em class="cd-schedule__name">{{ element.movie.name }}</em>
               </a>
             </li>
-
-
-            <li class="cd-schedule__event">
-              <a data-start="09:30" data-end="10:30" data-content="event-abs-circuit" data-event="event-1" href="#0">
-                <em class="cd-schedule__name">Abs Circuit</em>
-              </a>
-            </li>
-
-            <li class="cd-schedule__event">
-              <a data-start="11:00" data-end="12:30" data-content="event-rowing-workout" data-event="event-2" href="#0">
-                <em class="cd-schedule__name">Rowing Workout</em>
-              </a>
-            </li>
-
-            <li class="cd-schedule__event">
-              <a data-start="14:00" data-end="15:15"  data-content="event-yoga-1" data-event="event-3" href="#0">
-                <em class="cd-schedule__name">Yoga Level 1</em>
-              </a>
-            </li>
+            {% endfor %}
           </ul>
         </li>
-
-        <li class="cd-schedule__group">
-          <div class="cd-schedule__top-info"><span>Tuesday</span></div>
-
-          <ul>
-            <li class="cd-schedule__event">
-              <a data-start="10:00" data-end="11:00"  data-content="event-rowing-workout" data-event="event-2" href="#0">
-                <em class="cd-schedule__name">Rowing Workout</em>
-              </a>
-            </li>
-
-            <li class="cd-schedule__event">
-              <a data-start="11:30" data-end="13:00"  data-content="event-restorative-yoga" data-event="event-4" href="#0">
-                <em class="cd-schedule__name">Restorative Yoga</em>
-              </a>
-            </li>
-
-            <li class="cd-schedule__event">
-              <a data-start="13:30" data-end="15:00" data-content="event-abs-circuit" data-event="event-1" href="#0">
-                <em class="cd-schedule__name">Abs Circuit</em>
-              </a>
-            </li>
-
-            <li class="cd-schedule__event">
-              <a data-start="15:45" data-end="16:45"  data-content="event-yoga-1" data-event="event-3" href="#0">
-                <em class="cd-schedule__name">Yoga Level 1</em>
-              </a>
-            </li>
-          </ul>
-        </li>
-
-        <li class="cd-schedule__group">
-          <div class="cd-schedule__top-info"><span>Wednesday</span></div>
-
-          <ul>
-            <li class="cd-schedule__event">
-              <a data-start="09:00" data-end="10:15" data-content="event-restorative-yoga" data-event="event-4" href="#0">
-                <em class="cd-schedule__name">Restorative Yoga</em>
-              </a>
-            </li>
-
-            <li class="cd-schedule__event">
-              <a data-start="10:45" data-end="11:45" data-content="event-yoga-1" data-event="event-3" href="#0">
-                <em class="cd-schedule__name">Yoga Level 1</em>
-              </a>
-            </li>
-
-            <li class="cd-schedule__event">
-              <a data-start="12:00" data-end="13:45"  data-content="event-rowing-workout" data-event="event-2" href="#0">
-                <em class="cd-schedule__name">Rowing Workout</em>
-              </a>
-            </li>
-
-            <li class="cd-schedule__event">
-              <a data-start="13:45" data-end="15:00" data-content="event-yoga-1" data-event="event-3" href="#0">
-                <em class="cd-schedule__name">Yoga Level 1</em>
-              </a>
-            </li>
-          </ul>
-        </li>
-
-        <li class="cd-schedule__group">
-          <div class="cd-schedule__top-info"><span>Thursday</span></div>
-
-          <ul>
-            <li class="cd-schedule__event">
-              <a data-start="09:30" data-end="10:30" data-content="event-abs-circuit" data-event="event-1" href="#0">
-                <em class="cd-schedule__name">Abs Circuit</em>
-              </a>
-            </li>
-
-            <li class="cd-schedule__event">
-              <a data-start="12:00" data-end="13:45" data-content="event-restorative-yoga" data-event="event-4" href="#0">
-                <em class="cd-schedule__name">Restorative Yoga</em>
-              </a>
-            </li>
-
-            <li class="cd-schedule__event">
-              <a data-start="15:30" data-end="16:30" data-content="event-abs-circuit" data-event="event-1" href="#0">
-                <em class="cd-schedule__name">Abs Circuit</em>
-              </a>
-            </li>
-
-            <li class="cd-schedule__event">
-              <a data-start="17:00" data-end="18:30"  data-content="event-rowing-workout" data-event="event-2" href="#0">
-                <em class="cd-schedule__name">Rowing Workout</em>
-              </a>
-            </li>
-          </ul>
-        </li>
-
-        <li class="cd-schedule__group">
-          <div class="cd-schedule__top-info"><span>Friday</span></div>
-
-          <ul>
-            <li class="cd-schedule__event">
-              <a data-start="10:00" data-end="11:00"  data-content="event-rowing-workout" data-event="event-2" href="#0">
-                <em class="cd-schedule__name">Rowing Workout</em>
-              </a>
-            </li>
-
-            <li class="cd-schedule__event">
-              <a data-start="12:30" data-end="14:00" data-content="event-abs-circuit" data-event="event-1" href="#0">
-                <em class="cd-schedule__name">Abs Circuit</em>
-              </a>
-            </li>
-
-            <li class="cd-schedule__event">
-              <a data-start="15:45" data-end="16:45"  data-content="event-yoga-1" data-event="event-3" href="#0">
-                <em class="cd-schedule__name">Yoga Level 1</em>
-              </a>
-            </li>
-          </ul>
-        </li>
-
-        <li class="cd-schedule__group">
-          <div class="cd-schedule__top-info"><span>Saturday</span></div>
-          <ul>
-
-          </ul>
-        </li>
-
-        <li class="cd-schedule__group">
-          <div class="cd-schedule__top-info"><span>Sunday</span></div>
-          <ul>
-
-          </ul>
-        </li>
-
+        {% endfor %}
       </ul>
     </div>
-
+  {#finished putting elements #}
     <div class="cd-schedule-modal">
       <header class="cd-schedule-modal__header">
         <div class="cd-schedule-modal__content">
@@ -248,5 +159,5 @@
   <script src="{{ asset('js/planning/main.js') }}"></script>
   <script src="{{ asset('js/axios.min.js') }}"></script>
   <script src="{{ asset('js/planning/planning-movie-grabber.js') }}"></script>
-
+  <script src="{{ asset('js/planning/mainAdd.js') }}"></script>
 {% endblock %}

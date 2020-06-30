@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\MoviePlanning;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -15,7 +16,7 @@ class MoviePlanningFormType extends AbstractType
             ->add('startingTime')
             ->add('endingTime')
             ->add('planning')
-            ->add('movie')
+            ->add('movie');
         ;
     }
 
