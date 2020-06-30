@@ -3,9 +3,9 @@
 namespace App\Controller;
 
 use App\Entity\Movie;
+use App\Entity\MovieGenre;
 use App\Entity\MoviePlanning;
 use App\Entity\Planning;
-use App\Form\MoviePlanningFormType;
 use App\Form\PlanningFormType;
 use App\Repository\MovieGenreRepository;
 use App\Repository\MoviePlanningRepository;
@@ -122,7 +122,7 @@ class PlanningController extends AbstractController
      * @Route("/regowner/planning/{id}/addmovie",name="movie_add")
      */
 
-    public function addMovie(Request $request ,EntityManagerInterface $em,MovieRepository $repository,Planning $planning=null)
+    public function addMovie(Request $request ,EntityManagerInterface $em,MovieRepository $repository,MovieGenreRepository $genRepo,Planning $planning=null)
     {
         if ($planning==null) return $this->render('404.html.twig') ;
         else
@@ -132,6 +132,7 @@ class PlanningController extends AbstractController
             $moviePlanning = New MoviePlanning() ;
             $moviePlanning ->setPlanning($planning) ;
 
+
             $startingTime=$request->request->get("_sTime");
             $endingTime=$request->request->get("_eTime") ;
             $day = $request->request->get("_day") ;
@@ -139,6 +140,9 @@ class PlanningController extends AbstractController
             $plot =$request->request->get("_plot") ;
             $link=$request->request->get("_link") ;
             $imdb=$request->request->get("_link_imdb");
+            $genres =$request->request->get("_genres") ;
+            $arr_genres=preg_split("/ /" ,$genres,-1,PREG_SPLIT_NO_EMPTY) ;
+
             $weekdays=[];
             $first_day=$planning->getStartingDate()->format("Y-m-d");
             for ($i=0;$i<7;$i++)
@@ -162,7 +166,19 @@ class PlanningController extends AbstractController
                     $movie->setName($search);
                     $movie->setPlot($plot);
                     $movie->setTmdbLink($link);
-                    $movie->setImdbLink($imdb); }
+                    $movie->setImdbLink($imdb);
+                    //Save the genres for the movie
+                       foreach($arr_genres as $genre)
+                       {
+                           $movieGenre=$genRepo->findOneBy(["name"=>$genre]) ;
+                           if ($movieGenre==null)
+                           {
+                               $movieGenre=new MovieGenre();
+                               $movieGenre->setName("genre") ;
+                           }
+                            $movie->addGenre($movieGenre) ;
+                       }
+                   }
                 $moviePlanning->setMovie($movie);
             }
             if ($validation)

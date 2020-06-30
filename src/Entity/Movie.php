@@ -40,7 +40,7 @@ class Movie
     private $moviePlannings;
 
     /**
-     * @ORM\ManyToMany(targetEntity=MovieGenre::class)
+     * @ORM\ManyToMany(targetEntity=MovieGenre::class,cascade={"persist"})
      */
     private $genres;
 

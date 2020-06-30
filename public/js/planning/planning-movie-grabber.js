@@ -1,6 +1,21 @@
 $(document).ready(function(){
 
-    let att = document.createAttribute("tmdbLink");
+    $(".cd-schedule__event").each(function () {
+        let link=$(this).find("a") ;
+        let id=link.attr("id");
+        axios.get('https://api.themoviedb.org/3/movie/'+id+'?api_key=98325a9d3ed3ec225e41ccc4d360c817&language=en-US')
+            .then(function (response) {
+                let movie=response.data;
+                let poster= (movie.poster_path!=null)?"https://image.tmdb.org/t/p/w500"+movie.poster_path:"/images/altImageMovie/notfoundLast.png" ;
+                link.css({"background-image":"url('"+poster+"')", "background-size": "100% 380px"});
+
+            } )
+            .catch(function (error) {
+                /*console.log(error);*/
+            });
+
+    });
+
 
     $('#search').keyup(function()
     {   showResult($(this).val()) ;
@@ -20,10 +35,15 @@ $(document).ready(function(){
                 let  movie=response.data;
                 let plot = movie.overview ;
                 let imdb=movie.imdb_id ;
+                let genres = "" ;
+                for(let i=0 ; i<movie.genres.length;i++)
+                {genres=genres+movie.genres[i].name+" " ;}
 
+                console.log(genres) ;
                 $("#tmdb_link_id").val(link);
                 $("#tmdb_plot").html(plot) ;
                 $("#imdb_link_id").val(imdb) ;
+                $("#genres").val(genres) ;
             })
             .catch(function (error) {
                     console.log(error);

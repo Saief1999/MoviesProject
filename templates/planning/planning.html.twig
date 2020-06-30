@@ -121,7 +121,8 @@
           <ul>
             {% for element in day %}
             <li class="cd-schedule__event">
-              <a data-start="{{ element.startingTime.format("H:i") }}" data-end="{{ element.endingTime.format("H:i") }}" data-content="showplot/{{ element.id }}" data-event="event-1" href="#0">
+              <a data-start="{{ element.startingTime.format("H:i") }}" data-end="{{ element.endingTime.format("H:i") }}" data-content="showplot/{{ element.id }}" data-event="event-1"
+                 id="{{ element.movie.tmdbLink }}"  href="#">
                 <em class="cd-schedule__name">{{ element.movie.name }}</em>
               </a>
             </li>
