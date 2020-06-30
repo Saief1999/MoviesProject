@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\CinemaRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -51,6 +53,16 @@ class Cinema
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $imagePath;
+
+    /**
+     * @ORM\OneToMany(targetEntity=TblComment::class, mappedBy="cinema", orphanRemoval=true)
+     */
+    private $tblComments;
+
+    public function __construct()
+    {
+        $this->tblComments = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -137,6 +149,37 @@ class Cinema
     public function setImagePath(?string $imagePath): self
     {
         $this->imagePath = $imagePath;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|TblComment[]
+     */
+    public function getTblComments(): Collection
+    {
+        return $this->tblComments;
+    }
+
+    public function addTblComment(TblComment $tblComment): self
+    {
+        if (!$this->tblComments->contains($tblComment)) {
+            $this->tblComments[] = $tblComment;
+            $tblComment->setCinema($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTblComment(TblComment $tblComment): self
+    {
+        if ($this->tblComments->contains($tblComment)) {
+            $this->tblComments->removeElement($tblComment);
+            // set the owning side to null (unless already changed)
+            if ($tblComment->getCinema() === $this) {
+                $tblComment->setCinema(null);
+            }
+        }
 
         return $this;
     }

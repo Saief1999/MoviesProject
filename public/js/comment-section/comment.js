@@ -26,11 +26,12 @@ $(document).ready(function(){
     function load_comment()
     {
         $.ajax({
-            url:"",
+            url:"fetch",
             method:"POST",
             success:function(data)
             {
                 $('#display_comment').html(data);
+                console.log(data) ;
             }
         })
     }

@@ -17,15 +17,6 @@ class TblComment
      */
     private $id;
 
-    /**
-     * @ORM\Column(type="integer")
-     */
-    private $comment_id;
-
-    /**
-     * @ORM\Column(type="integer")
-     */
-    private $parent_comment_id;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -38,37 +29,19 @@ class TblComment
     private $comment_sender_name;
 
     /**
-     * @ORM\Column(type="date")
+     * @ORM\ManyToOne(targetEntity=Cinema::class, inversedBy="tblComments")
+     * @ORM\JoinColumn(nullable=false)
      */
-    private $date;
+    private $cinema;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $replyTime;
 
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getCommentId(): ?int
-    {
-        return $this->comment_id;
-    }
-
-    public function setCommentId(int $comment_id): self
-    {
-        $this->comment_id = $comment_id;
-
-        return $this;
-    }
-
-    public function getParentCommentId(): ?int
-    {
-        return $this->parent_comment_id;
-    }
-
-    public function setParentCommentId(int $parent_comment_id): self
-    {
-        $this->parent_comment_id = $parent_comment_id;
-
-        return $this;
     }
 
     public function getComment(): ?string
@@ -95,14 +68,26 @@ class TblComment
         return $this;
     }
 
-    public function getDate(): ?\DateTimeInterface
+    public function getCinema(): ?Cinema
     {
-        return $this->date;
+        return $this->cinema;
     }
 
-    public function setDate(\DateTimeInterface $date): self
+    public function setCinema(?Cinema $cinema): self
     {
-        $this->date = $date;
+        $this->cinema = $cinema;
+
+        return $this;
+    }
+
+    public function getReplyTime(): ?\DateTimeInterface
+    {
+        return $this->replyTime;
+    }
+
+    public function setReplyTime(\DateTimeInterface $replyTime): self
+    {
+        $this->replyTime = $replyTime;
 
         return $this;
     }

@@ -1,12 +1,10 @@
 {% extends 'base.html.twig' %}
 {% block title %}Cinemas{% endblock %}
 {% block stylesheets %}
-    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <link rel="stylesheet" type="text/css" href="{{ asset('css/bootstrap.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('css/style-singlecinema.css') }}">
 {% endblock %}
 {% block body %}
-    <body>
     <div class="container emp-profile">
         <div class="row" style="background: #0b1c2c;">
             <div class="col-md-4">
@@ -98,7 +96,6 @@
         </div>
 
     </div>
-    </body>
 {% endblock %}
 {% block javascripts %}
     {{ parent() }}
