@@ -69,8 +69,10 @@
         </div>
       </div>
       </form>
+      <div  id="js-result"></div>
     </div>
 {#  live search end#}
+    {# Success / failure #}
 
 {% endif %}
 
@@ -115,7 +117,7 @@
     <div class="cd-schedule__events">
       <ul>
         {% for key, day in schedule %}
-        <li class="cd-schedule__group">
+        <li class="cd-schedule__group {{ key }}">
           <div class="cd-schedule__top-info"><span>{{ key }}</span></div>
 
           <ul>
@@ -158,9 +160,8 @@
 
 {% block javascripts %}
   {{ parent() }}
-  <script src="{{ asset('js/planning/util.js') }}"></script> <!-- util functions included in the CodyHouse framework -->
+  <script src="{{ asset('js/planning/util.js') }}"></script>
   <script src="{{ asset('js/planning/main1.js') }}"></script>
   <script src="{{ asset('js/axios.min.js') }}"></script>
   <script src="{{ asset('js/planning/planning-movie-grabber.js') }}"></script>
-  <script src="{{ asset('js/planning/mainAdd.js') }}"></script>
 {% endblock %}

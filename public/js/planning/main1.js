@@ -1,3 +1,4 @@
+var schedule ;
 (function() {
 	// Schedule Template - by CodyHouse.co
 	function ScheduleTemplate( element ) {
@@ -26,6 +27,7 @@
 		this.supportAnimation = Util.cssSupports('transition');
 
 		this.initSchedule();
+		schedule = this ;
 	};
 
 	ScheduleTemplate.prototype.initSchedule = function() {

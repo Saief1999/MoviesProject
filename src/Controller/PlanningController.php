@@ -102,98 +102,100 @@ class PlanningController extends AbstractController
     }
 
     /**
-     * @Route("/regowner/test/{id}",name="movie_add_test")
-     * @param MoviePlanning $moviePlanning
-     * @param EntityManagerInterface $em
-     * @param MoviePlanningRepository $repository
-     * @return Response
-     *
-     * Adds a movie  to a planning
-     */
-
-    public function addMovieToPlanning(EntityManagerInterface $em,MoviePlanningRepository $repository,MoviePlanning $moviePlanning)
-    :Response
-    {
-        return $this->json(["code"=>200,"msg"=>"Movie Added"],200) ;
-    }
-
-    /**
      *
      * @Route("/regowner/planning/{id}/addmovie",name="movie_add")
      */
 
-    public function addMovie(Request $request ,EntityManagerInterface $em,MovieRepository $repository,MovieGenreRepository $genRepo,Planning $planning=null)
+    public function addMovie(Request $request ,EntityManagerInterface $em,MovieRepository $repository,MovieGenreRepository $genRepo,ScheduleShufflerService $shuffler,Planning $planning=null)
     {
         if ($planning==null) return $this->render('404.html.twig') ;
         else
         {
-            $validation=false ;
-
+            $validation=true ;
             $moviePlanning = New MoviePlanning() ;
             $moviePlanning ->setPlanning($planning) ;
+            $data = json_decode($request->getContent(), true);
 
-
-            $startingTime=$request->request->get("_sTime");
+/*            $startingTime=$request->request->get("_sTime");
             $endingTime=$request->request->get("_eTime") ;
             $day = $request->request->get("_day") ;
             $search=$request->request->get("search") ;
             $plot =$request->request->get("_plot") ;
             $link=$request->request->get("_link") ;
             $imdb=$request->request->get("_link_imdb");
-            $genres =$request->request->get("_genres") ;
+            $genres =$request->request->get("_genres") ;*/
+
+            $startingTime=$data["sTime"] ;
+            $endingTime=$data["eTime"] ;
+            $day = $data["day"] ;
+            $search=$data["search"] ;
+            $plot =$data["plot"] ;
+            $link=$data["link"] ;
+            $imdb=$data["imdb"];
+            $genres =$data["genres"] ;
             $arr_genres=preg_split("/ /" ,$genres,-1,PREG_SPLIT_NO_EMPTY) ;
+            if (strlen($search)==0 )
+            { $validation=false ;}
+            else {
+                $weekdays = [];
+                $first_day = $planning->getStartingDate()->format("Y-m-d");
+                for ($i = 0; $i < 7; $i++) {
+                    $date = date('Y-m-d', strtotime($first_day . "+" . $i . " days"));
+                    $weekdays[$i] = (new \DateTime($date))->format("l");
+                }
+                if (in_array($day, $weekdays)) {
 
-            $weekdays=[];
-            $first_day=$planning->getStartingDate()->format("Y-m-d");
-            for ($i=0;$i<7;$i++)
-            {
-                $date = date('Y-m-d',strtotime($first_day ."+".$i." days")) ;
-                $weekdays[$i]=(new \DateTime($date))->format("l");
+                    $date = date('Y-m-d', strtotime($first_day . "+" . array_search($day, $weekdays) . " days"));
+                    $startingDate = $date . " " . $startingTime;
+                    $endingDate = $date . " " . $endingTime;
+
+                    $moviePlanning->setStartingTime(new \DateTime($startingDate));
+                    $moviePlanning->setEndingTime(new \DateTime($endingDate));
+
+                    $movie = $repository->findOneBy(["tmdbLink" => $link]);
+                    if ($movie == null) {
+                        $movie = new Movie();
+                        $movie->setName($search);
+                        $movie->setPlot($plot);
+                        $movie->setTmdbLink($link);
+                        $movie->setImdbLink($imdb);
+                        //Save the genres for the movie
+                        foreach ($arr_genres as $genre) {
+                            $movieGenre = $genRepo->findOneBy(["name" => $genre]);
+                            if ($movieGenre == null) {
+                                $movieGenre = new MovieGenre();
+                                $movieGenre->setName("genre");
+                            }
+                            $movie->addGenre($movieGenre);
+                        }
+                    }
+                    $moviePlanning->setMovie($movie);
+                }
             }
-            if (in_array($day,$weekdays)) {
-                $validation=true ;
 
-                $date = date('Y-m-d',strtotime($first_day ."+".array_search($day,$weekdays)." days")) ;
-                $startingDate = $date." ".$startingTime;
-                $endingDate   = $date." ".$endingTime;
-
-                $moviePlanning->setStartingTime(new \DateTime($startingDate));
-                $moviePlanning->setEndingTime(new \DateTime($endingDate));
-
-                $movie=$repository->findOneBy(["tmdbLink"=>$link]) ;
-                if ($movie==null )
-                   {$movie = new Movie();
-                    $movie->setName($search);
-                    $movie->setPlot($plot);
-                    $movie->setTmdbLink($link);
-                    $movie->setImdbLink($imdb);
-                    //Save the genres for the movie
-                       foreach($arr_genres as $genre)
-                       {
-                           $movieGenre=$genRepo->findOneBy(["name"=>$genre]) ;
-                           if ($movieGenre==null)
-                           {
-                               $movieGenre=new MovieGenre();
-                               $movieGenre->setName("genre") ;
-                           }
-                            $movie->addGenre($movieGenre) ;
-                       }
-                   }
-                $moviePlanning->setMovie($movie);
-            }
             if ($validation)
             {
                 $em->persist($moviePlanning);
                 $em->flush();
+                $plannings =$planning->getMoviePlannings() ;
+                foreach ($plannings as $el)
+                {   $elDay=$el->getStartingTime()->format("Y-m-d");
+                    $schedule[$elDay][]=$el ;
+                }
+                $shuffler->shuffle($schedule);
+                $position=array_search($moviePlanning,$schedule[$day]);
                 $status = "success";
-                $message = "new movie saved";
+                $message = "New Movie added";
+                $id =$repository->findOneBy(["tmdbLink" => $link])->getId() ;
                 $code=200 ;
+                return $this->json(["status"=>$status,"message"=>$message,"movieId"=>$id,"position"=>$position+1],$code) ;
             }
             else {
                 $status = "failure";
-                $message = "form error";
+                $message = "Form Error";
                 $code=400 ;
-            }return $this->json(["status"=>$status,"message"=>$message],$code) ;
+                return $this->json(["status"=>$status,"message"=>$message],$code) ;
+            }
         }
 
     }
