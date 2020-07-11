@@ -2,77 +2,57 @@
 {% block title %}Cinemas{% endblock %}
 {% block stylesheets %}
     <link rel="stylesheet" type="text/css" href="{{ asset('css/bootstrap.min.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('css/style-singlecinema.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/singlecinema1.css') }}">
 {% endblock %}
 {% block body %}
-    <div class="container emp-profile">
-        <div class="row" style="background: #0b1c2c;">
-            <div class="col-md-4">
-                <div class="profile-img">
-                    <img src="{{ asset('uploads/cinema/'~cinema.imagePath) }}" width="400" height="400" alt=""/>
+    <div class= 'containerx'>
+        <div class="container_content">
+            <div class="container_content_inner">
+                <div class="title">
+                    <h1>{{ cinema.name }}</h1>
                 </div>
-            </div>
-            <div class="col-md-6" style="margin-top: 20px">
-                <div class="profile-head" style="color:whitesmoke">
-                    <h3>
-                        {{ cinema.name }}
-                    </h3>
-                    <h6>
-                        {{ cinema.adress }}
-                    </h6>
+                <div class="par">
+                    <p>{{ cinema.description }}
+                    </p>
+                </div>
+                <div id="more-Details" style="display:none;">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label>Opening Time</label>
+                        </div>
+                        <div class="col-md-6">
+                            <span>{{cinema.openingTime.format('H:i:s')}}</span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label>Closing Time</label>
+                        </div>
+                        <div class="col-md-6">
+                            <span>{{ cinema.closingTime.format('H:i:s') }}</span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label>Phone</label>
+                        </div>
+                        <div class="col-md-6">
+                            <span>{{ cinema.phoneNumber }}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="btns">
+                    <button href="#" class='btns_more' id="btn""> See More </button>
                 </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col-md-8">
-                <div class="tab-content profile-tab" id="myTabContent">
-                    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab" style="padding-left: 50px;padding-top: 20px">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <label>Name</label>
-                            </div>
-                            <div class="col-md-6">
-                                <p>{{ cinema.name }}</p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <label>Adress</label>
-                            </div>
-                            <div class="col-md-6">
-                                <p>{{ cinema.adress }}</p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <label>Opening Time</label>
-                            </div>
-                            <div class="col-md-6">
-                                <p>{{cinema.openingTime.format('H:i:s')}}</p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <label>Closing Time</label>
-                            </div>
-                            <div class="col-md-6">
-                                <p>{{ cinema.closingTime.format('H:i:s') }}</p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <label>Phone</label>
-                            </div>
-                            <div class="col-md-6">
-                                <p>{{ cinema.phoneNumber }}</p>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
+        <div class="container_outer_img">
+            <div class="img-inner">
+                <img src='{{ asset('uploads/cinema/'~cinema.imagePath) }}'  alt="cinema_image" class="container_img"/>
             </div>
         </div>
     </div>
+    <div class="overlay"></div>
     <div class="comment-section">
         <br />
         <h2 align="center"><a href="#">Comment System using PHP and Ajax</a></h2>
@@ -100,6 +80,7 @@
 {% block javascripts %}
     {{ parent() }}
     <script type="text/javascript" src="{{ asset('js/comment-section/comment.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/seemoreseeless.js') }}"></script>
     <script type="text/javascript">
     </script>
 {% endblock %}

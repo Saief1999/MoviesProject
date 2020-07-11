@@ -82,12 +82,12 @@ function getMovie(){
         let genres = "" ;
         for(i=0 ; i<movie.genres.length;i++)
         {genres=genres+movie.genres[i].name +
-            ((i==movie.genres.length-1)? " .":" , "); }
+            ((i==movie.genres.length-1)? "":" , "); }
 
         let production_companies ="";
         for(i=0 ; i<movie.production_companies.length;i++)
         {production_companies=production_companies+movie.production_companies[i].name+" "
-            +((i==movie.production_companies.length-1)? " .":" , "); }
+            +((i==movie.production_companies.length-1)? "":" , "); }
 
         let output = `
         <div class="row">
@@ -99,7 +99,7 @@ function getMovie(){
             <ul class="list-group">
               <li class="list-group-item"><strong>Genre:</strong> ${genres}</li>
               <li class="list-group-item"><strong>Released:</strong> ${movie.release_date}</li>
-              <li class="list-group-item"><strong>Rated:</strong> ${movie.vote_average}</li>
+              <li class="list-group-item"><strong>Rated:</strong> ${movie.vote_average}/10</li>
               <li class="list-group-item"><strong>Runtime:</strong> ${movie.runtime} min.</li>
               <li class="list-group-item"><strong>Production Companies:</strong> ${production_companies}</li>
             </ul>
@@ -110,8 +110,10 @@ function getMovie(){
             <h3>Plot</h3>
             ${movie.overview}
             <hr>
-            <a href="http://imdb.com/title/${movie.imdb_id}" target="_blank" class="btn btn-primary">View IMDB</a>
-            <a href="movies" class="btn btn-default">Go Back To Search</a>
+            <div style="margin-bottom: 10px">
+                <a href="http://imdb.com/title/${movie.imdb_id}" target="_blank" class="btn btn-primary">View IMDB</a>
+                <a href="movies" class="btn btn-default">Go Back To Search</a>
+            </div>
           </div>
         </div>
     `;
