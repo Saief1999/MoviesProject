@@ -3,82 +3,35 @@
 {% block title %}Profile{% endblock %}
 {% block stylesheets %}
     <link rel="stylesheet" type="text/css" href="{{ asset('css/profile-style-regowneruser.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/profile.css') }}">
 {% endblock %}
 
 {% block body %}
-    <div class="container emp-profile">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="profile-head">
-                    {% for i in 0..1 %}
-                        <br/>
-                    {% endfor %}
-                    <h1>
-                        {{ registereduser.user.username }}
-                    </h1>
-                    <h6>
-                        {{ registereduser.user.firstName }}
-                    </h6>
-                    <ul class="nav nav-tabs" id="myTab" role="tablist">
-                        <li class="nav-item">
-                            <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">About</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <div class="col-md-2">
-                <input type="submit" class="profile-edit-btn" name="btnAddMore" value="Edit Profile"/>                </div>
-             </div>
+    <main class="profile">
+        <div class="profile-bg"></div>
+        <section class="container">
+            <aside class="profile-image">
+                <p style="color:whitesmoke">you put here the profile picture</p>
+                <a class="edit" href="#">
+                    Edit profile
+                </a>
+            </aside>
+            <section class="profile-info">
+                <h1 class="first-name">{{ registereduser.user.firstName }}</h1>
+                <h1 class="second-name">{{ registereduser.user.lastName}}</h1>
+                <h2>ABOUT</h2>
+                <p>Username : {{ registereduser.user.username }}</p>
+                <p>Email : {{ registereduser.user.email }}</p>
+                <h2>Favorite Movies genres : </h2>
+                 <section class="movies">
 
-        </div>
+                     {% for moviesgenre in registereduser.favoriteGenres %}
+                         <p>{{ moviesgenre.name }}</p>
+                     {% endfor %}
+                 </section>
+            </section>
+        </section>
+    </main>
 
-        <div class="col-md-8">
-            <div class="tab-content profile-tab" id="myTabContent">
-                <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <label>User Id</label>
-                        </div>
-                        <div class="col-md-6">
-                            <p>{{ registereduser.id }}</p>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <label>Name</label>
-                        </div>
-                        <div class="col-md-6">
-                            <p>{{ registereduser.user.lastName}} {{  registereduser.user.firstName }}</p>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <label>Email</label>
-                        </div>
-                        <div class="col-md-6">
-                            <p>{{ registereduser.user.email }}</p>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <label>Favorite Movies genres</label>
-                        </div>
-                        <div class="col-md-6">
-                            {% for moviesgenre in registereduser.favoriteGenres %}
-                            <div>
-                                <p>{{ moviesgenre.name }}</p>
-                            </div>
-                            {% endfor %}
-                        </div>
-                    </div>
-                </div>
-
-
-
-
-
-                </div>
-            </div>
-        </div>
 
 {% endblock %}
