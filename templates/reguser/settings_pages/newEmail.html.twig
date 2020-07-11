@@ -1,0 +1,44 @@
+{% extends 'reguser/settings-base.html.twig' %}
+{% block title %}Change Email {% endblock %}
+
+{% block settingsTitle %}
+    Change Email
+{% endblock %}
+
+{% block formbody %}
+    {% for el in app.session.flashBag.get("success") %}
+        <div class="alert alert-success">{{ el }}</div>
+    {% endfor %}
+
+    {% for el in app.session.flashBag.get("error") %}
+        <div class="alert alert-danger">{{ el }}</div>
+    {% endfor %}
+
+
+    {{ form_start(form) }}
+    <div class="form-group row">
+        {{ form_label(form.newEmail, 'New Email', {'label_attr': {'class': 'col-4 col-form-label'}}) }}
+        <div class="col-8">
+            {{ form_widget(form.newEmail,{'attr':{'class' : 'form-control here'}}) }}
+        </div>
+    </div>
+    <div class="form-group row">
+    <div class="offset-4 col-8">
+        <button name="submit" type="submit" class="btn btn-primary">Change My Email</button>
+    </div>
+    </div>
+    {{ form_end(form) }}
+{% endblock %}
+
+
+{% block javascripts %}
+    {# Change the selected element in the settings navbar to the current page#}
+    <script>
+        $(document).ready(function () {
+            changeSelectedItem()
+        });
+        function changeSelectedItem(){
+            document.getElementById("changeEmailId").classList.add("active");
+        }
+    </script>
+{% endblock %}
