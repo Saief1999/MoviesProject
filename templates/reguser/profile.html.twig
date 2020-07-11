@@ -23,12 +23,12 @@
                 <p>Username : {{ registereduser.user.username }}</p>
                 <p>Email : {{ registereduser.user.email }}</p>
                 <h2>Favorite Movies genres : </h2>
-                 <section class="movies">
+                <section class="movies">
 
-                     {% for moviesgenre in registereduser.favoriteGenres %}
-                         <p>{{ moviesgenre.name }}</p>
-                     {% endfor %}
-                 </section>
+                    {% for moviesgenre in registereduser.favoriteGenres %}
+                        <p>{{ moviesgenre.name }}</p>
+                    {% endfor %}
+                </section>
             </section>
         </section>
     </main>
