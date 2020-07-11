@@ -474,6 +474,7 @@ a.navbar-brand img {
 }
 
 .search-btn {
+	border-radius: 4px;
 	float: right;
 	width: 41px;
 	height: 41px;
@@ -502,6 +503,8 @@ a.navbar-brand img {
 .theme_color {
 	color: #d4a81e;
 }
+
+/*TEST*/
 
 
 /*------------------------------------------------------------------ Banner -------------------------------------------------------------------*/
@@ -2156,6 +2159,7 @@ section.inner_banner h3 {
 	padding: 0 10px;
 	border: solid #000 1px;
 	height: 41px;
+	border-radius: 4px;
 }
 
 .top-header.fixed-menu ul li a:hover
