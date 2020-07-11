@@ -75,6 +75,7 @@ p{
     background: #0056b3;
 }
 .btns_more {
+    cursor:pointer;
     transition: 0.3s;
     background: transparent;
     border: 1px solid var(--contrast-color);
@@ -110,16 +111,6 @@ h1 {
         transform: translateX(0px) scale(1);
     }
 }
-
-@keyframes slideUpMod {
-    0% {
-        transform: translateY(400px);
-    }
-    100% {
-        transform: translateY(0px);
-    }
-}
-
 
 @keyframes slideUp {
     0% {
