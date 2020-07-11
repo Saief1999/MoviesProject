@@ -37,13 +37,13 @@ General Settings
 {% endblock %}
 
 {% block javascripts %}
-{# Change the selected element in the settings navbar to the current page#}
+    {# Change the selected element in the settings navbar to the current page#}
     <script>
-    $(document).ready(function () {
-    changeSelectedItem()
-    });
-    function changeSelectedItem(){
-    document.getElementById("generalId").classList.add("active");
-    }
+        $(document).ready(function () {
+            changeSelectedItem()
+        });
+        function changeSelectedItem(){
+            document.getElementById("generalId").classList.add("active");
+        }
     </script>
 {% endblock %}

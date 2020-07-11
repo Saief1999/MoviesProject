@@ -8,8 +8,8 @@
 {% endblock %}
 {% block body %}
 
+<h4 align="center">Planning Starting : {{ planning.startingDate.format("d/M/Y") }}</h4>
   {% if app.user and app.user.roles[0] == "ROLE_CIN_OWNER" %}
-
   {#live search#}
   <style>
     #result {
@@ -26,7 +26,7 @@
   </style>
 
     <div class="container mt-md-4" id="js-searchbox">
-      <form method="POST" action="{{ url('movie_add',{"id" : id}) }}" autocomplete="off">
+      <form method="POST" action="{{ url('movie_add',{"id" : planning.id}) }}" autocomplete="off">
       <div class="row">
         <div class="col-sm-4">
           <label for="search">Add Your Movie</label>

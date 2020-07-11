@@ -20,7 +20,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class PlanningController extends AbstractController
 {
     /**
-     * @Route("/regowner/planning/{id}", name="planning")
+     * @Route("/planning/{id}", name="planning")
      */
     public function planning(ScheduleShufflerService $shuffler,Planning $planning=null)
     {
@@ -28,8 +28,8 @@ class PlanningController extends AbstractController
         else {
 
             /**
-             * The schedule is a table like this :
-             * ["Monday"=>[movieplanning1,movieplanning2...],"Tuesday"=>[],....]
+             * The schedule is done with this model :
+             * ["Monday"=>[movie1,movie2...],"Tuesday"=>[],....]
              */
             $schedule = array();
             // init the 7 days
@@ -41,7 +41,7 @@ class PlanningController extends AbstractController
             }
             $shuffler->shuffle($schedule);
             return $this->render('planning/planning.html.twig', [
-                "schedule"=>$schedule,"id"=>$planning->getId()]);
+                "schedule"=>$schedule,"planning"=>$planning]);
         }
 
     }
@@ -103,7 +103,7 @@ class PlanningController extends AbstractController
 
     /**
      *
-     * @Route("/regowner/planning/{id}/addmovie",name="movie_add")
+     * @Route("regowner/planning/{id}/addmovie",name="movie_add")
      */
 
     public function addMovie(Request $request ,EntityManagerInterface $em,MovieRepository $repository,MovieGenreRepository $genRepo,ScheduleShufflerService $shuffler,Planning $planning=null)

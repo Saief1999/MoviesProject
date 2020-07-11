@@ -3,10 +3,14 @@
 namespace App\Controller;
 
 use App\Entity\CinemaOwner;
+use App\Form\ChangeEmailFormType;
+use App\Form\CinemaFormType;
 use App\Form\CinemaOwnerFormType;
 use App\Form\NewPasswordFormType;
+use App\Services\EmailChanger;
 use App\Services\ImageSaverService;
 use App\Services\PasswordChanger;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
@@ -79,14 +83,42 @@ class RegOwnerController extends AbstractController
     }
 
     /**
+     * @Route("/regowner/settings/newemail",name="regowner_newemail")
+     */
+    public function changeEmail(Request $request,EmailChanger $emailChanger)
+    {
+        $form = $this->createForm(ChangeEmailFormType::class) ;
+        $form->handleRequest($request) ;
+        if ($form->isSubmitted() && $form->isValid()) {
+            $emailChanger->changeEmail($this->getUser(),$form->get('newEmail')->getData());
+            $this->addFlash("successs",'Email Changed Succefully');
+        }
+        return $this->render('reg_owner/settings_pages/newEmail.html.twig', array(
+            'form' => $form->createView()
+        ));
+    }
+
+    /**
      * @Route("/regowner/settings/yourcinema",name="regowner_cinema")
      */
 
-    public function editCinema()
+    public function editCinema(Request $req , EntityManagerInterface $em)
     {
 
+        $cinemaOwner=$em->getRepository(CinemaOwner::class)
+                    ->findOneBy(array('user'=>$this->getUser()));
+        $cinema = $cinemaOwner->getCinema() ;
+        $form = $this->createForm(CinemaFormType::class,$cinema) ;
+        $form->handleRequest($req) ;
 
-        return $this->render("reg_owner/settings_pages/cinema.html.twig") ;
+        if ($form->isSubmitted() && $form ->isValid())
+        {
+        $em->persist($cinema);
+        $em->flush() ;
+        $this->addFlash("successs",'Cinema Informations Changed Succefully');
+        }
+
+        return $this->render("reg_owner/settings_pages/cinema.html.twig",["form"=>$form->createView()]) ;
 
     }
 }

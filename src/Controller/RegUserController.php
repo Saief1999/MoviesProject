@@ -4,9 +4,11 @@ namespace App\Controller;
 
 use App\Entity\CinemaOwner;
 use App\Entity\RegisteredUser;
+use App\Form\ChangeEmailFormType;
 use App\Form\CinemaOwnerFormType;
 use App\Form\NewPasswordFormType;
 use App\Form\RegisteredUserFormType;
+use App\Services\EmailChanger;
 use App\Services\PasswordChanger;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
@@ -74,4 +76,21 @@ class RegUserController extends AbstractController
         ));
     }
 
+    /**
+     * @Route("/reguser/settings/newemail",name="reguser_newemail")
+     */
+    public function changeEmail(Request $request,EmailChanger $emailChanger)
+    {
+        $form = $this->createForm(ChangeEmailFormType::class) ;
+        $form->handleRequest($request) ;
+        if ($form->isSubmitted() && $form->isValid()) {
+            $isValid=$emailChanger->changeEmail($this->getUser(),$form->get('newEmail')->getData());
+
+            $t=preg_split('/-/',$isValid,-1) ;
+                $this->addFlash($t[0],$t[1]);
+        }
+        return $this->render('reguser/settings_pages/newEmail.html.twig', array(
+            'form' => $form->createView()
+        ));
+    }
 }

@@ -9,11 +9,8 @@
             <div class="col-md-3 ">
                 <div class="list-group ">
                     <a href="{{ url('reguser_settings') }}" id="generalId" class="list-group-item list-group-item-action">General Settings</a>
-                    <a href="#" id="changeEmailId" class="list-group-item list-group-item-action">Change Email</a>
+                    <a href="{{ url('reguser_newemail') }}" id="changeEmailId" class="list-group-item list-group-item-action">Change Email</a>
                     <a href="{{ url('reguser_newpassword') }}" id="changePasswordId" class="list-group-item list-group-item-action">Change Password</a>
-
-
-
                 </div>
             </div>
             <div class="col-md-9">
@@ -44,5 +41,5 @@
             </div>
         </div>
     </div>
-
 {% endblock %}
+
