@@ -16,14 +16,13 @@
         <div class="containercinema">
             <ul>
                 {%  for cinema in cinemas %}
+
                 <li>
                     <img src="{{ asset('uploads/cinema/'~cinema.imagePath) }}" width="200" height="200">
-                    <div>
-                        <h3>{{ cinema.name }}</h3>
-                        <p>{{ cinema.description }}</p>
-                        <a href="{{ url('cinema',{'id': cinema.id  }) }} " class="astyle">Learn More</a>
-                    </div>
-
+                    <a href="{{ url('cinema',{'id': cinema.id  }) }} ">
+                            <h3>{{ cinema.name }}</h3>
+                            <p>{{ cinema.description }}</p>
+                    </a>
                 </li>
                 {% endfor %}
             </ul>
