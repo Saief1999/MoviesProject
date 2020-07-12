@@ -83,7 +83,6 @@ class PlanningController extends AbstractController
             return $this->redirectToRoute("myplannings",['p'=>1]);
         }
         else return $this->render("planning/add_planning.html.twig",["form"=>$form->createView()]) ;
-
     }
 
     /**

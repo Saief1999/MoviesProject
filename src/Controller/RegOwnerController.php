@@ -75,7 +75,7 @@ class RegOwnerController extends AbstractController
         $form->handleRequest($request) ;
         if ($form->isSubmitted() && $form->isValid()) {
             $passwordChanger->changePassword($this->getUser(),$form->get('newPass')->getData());
-            $this->addFlash("successs",'Password Changed Succefully');
+            $this->addFlash("success",'Password Changed Succefully');
         }
         return $this->render('reg_owner/settings_pages/newPassword.html.twig', array(
             'form' => $form->createView()
@@ -91,7 +91,7 @@ class RegOwnerController extends AbstractController
         $form->handleRequest($request) ;
         if ($form->isSubmitted() && $form->isValid()) {
             $emailChanger->changeEmail($this->getUser(),$form->get('newEmail')->getData());
-            $this->addFlash("successs",'Email Changed Succefully');
+            $this->addFlash("success",'Email Changed Succefully');
         }
         return $this->render('reg_owner/settings_pages/newEmail.html.twig', array(
             'form' => $form->createView()
@@ -102,8 +102,11 @@ class RegOwnerController extends AbstractController
      * @Route("/regowner/settings/yourcinema",name="regowner_cinema")
      */
 
-    public function editCinema(Request $req , EntityManagerInterface $em)
-    {
+    public function editCinema(Request $req , EntityManagerInterface $em,ImageSaverService $saver)
+    {   $cinemaOwneruser = $this->getUser();
+        $repository =$this->getDoctrine()->getRepository(CinemaOwner::class);
+        $owner=$repository->findOneBy(array('user'=>$cinemaOwneruser));
+
 
         $cinemaOwner=$em->getRepository(CinemaOwner::class)
                     ->findOneBy(array('user'=>$this->getUser()));
@@ -113,12 +116,12 @@ class RegOwnerController extends AbstractController
 
         if ($form->isSubmitted() && $form ->isValid())
         {
-        $em->persist($cinema);
-        $em->flush() ;
-        $this->addFlash("successs",'Cinema Informations Changed Succefully');
+            $saver->saveImage($owner->getCinema(),$form->get('image')->getData());
+            $em->persist($cinema);
+            $em->flush() ;
+            $this->addFlash("success",'Cinema Informations Changed Succefully');
         }
 
-        return $this->render("reg_owner/settings_pages/cinema.html.twig",["form"=>$form->createView()]) ;
-
+        return $this->render("reg_owner/settings_pages/cinema.html.twig",["form"=>$form->createView(),"imgPath"=>$cinema->getImagePath()]) ;
     }
 }

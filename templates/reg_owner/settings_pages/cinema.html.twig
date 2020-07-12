@@ -22,28 +22,28 @@
     </div>
 
     <div class="form-group row">
-        {{ form_label(form.adress, 'Cinema Description', {'label_attr': {'class': 'col-4 col-form-label'}}) }}
+        {{ form_label(form.adress, 'Cinema Adress', {'label_attr': {'class': 'col-4 col-form-label'}}) }}
         <div class="col-8">
             {{ form_widget(form.adress,{'attr':{'class' : 'form-control here'}}) }}
         </div>
     </div>
 
     <div class="form-group row">
-        {{ form_label(form.phoneNumber, 'Cinema Description', {'label_attr': {'class': 'col-4 col-form-label'}}) }}
+        {{ form_label(form.phoneNumber, 'Cinema Phone Number', {'label_attr': {'class': 'col-4 col-form-label'}}) }}
         <div class="col-8">
             {{ form_widget(form.phoneNumber,{'attr':{'class' : 'form-control here'}}) }}
         </div>
     </div>
 
     <div class="form-group row">
-        {{ form_label(form.openingTime, 'Cinema Description', {'label_attr': {'class': 'col-4 col-form-label'}}) }}
+        {{ form_label(form.openingTime, 'Opening Time', {'label_attr': {'class': 'col-4 col-form-label'}}) }}
         <div class="col-8">
             {{ form_widget(form.openingTime,{'attr':{'class' : 'here'}}) }}
         </div>
     </div>
 
     <div class="form-group row">
-        {{ form_label(form.closingTime, 'Cinema Description', {'label_attr': {'class': 'col-4 col-form-label'}}) }}
+        {{ form_label(form.closingTime, 'Closing Time', {'label_attr': {'class': 'col-4 col-form-label'}}) }}
         <div class="col-8">
             {{ form_widget(form.closingTime,{'attr':{'class' : 'here'}}) }}
         </div>
@@ -52,7 +52,8 @@
     <div class="form-group row">
         {{ form_label(form.image, 'Cinema Image', {'label_attr': {'class': 'col-4 col-form-label'}}) }}
         <div class="col-8">
-            {{ form_widget(form.image,{'attr':{'class' : 'here'}}) }}
+            {{ form_widget(form.image,{'attr':{'class' : 'here' }}) }}
+            <img id="js-image" src="{{ asset('uploads/cinema/'~imgPath) }}" alt="your image" style="width: 100px ; height:100px" class="pt-2"/>
         </div>
     </div>
 
@@ -76,4 +77,23 @@
             document.getElementById("changeCinId").classList.add("active");
         }
     </script>
+    <script>
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function(e) {
+                    $('#js-image').attr('src', e.target.result);
+                }
+
+                reader.readAsDataURL(input.files[0]); // convert to base64 string
+            }
+        }
+
+        $("#cinema_form_image").change(function() {
+            console.log("hey") ;
+            readURL(this);
+        });
+    </script>
+
 {% endblock %}
