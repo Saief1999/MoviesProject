@@ -6,17 +6,14 @@
 <link rel="stylesheet" type="text/css" href="{{ asset('css/settings-base.css') }}">
 {% endblock %}
 {% block body %}
-            <div id="exTab1" class="container">
-                <ul  class="nav nav-pills">
-                    <li class="active">
-                        <a href="{{ url('reguser_settings') }}" id="generalId" class="list-group-item list-group-item-action">General Settings</a>
-                    </li>
-                    <li class="active">
-                        <a href="{{ url('reguser_newemail') }}" id="changeEmailId" class="list-group-item list-group-item-action">Change Email</a>
-                    </li>
-                    <li><a href="{{ url('reguser_newpassword') }}" id="changePasswordId" class="list-group-item list-group-item-action">Change Password</a>
-                    </li>
-                </ul>
+    <div class="container wrapper" style="margin-top: 10px; margin-bottom: 10px">
+        <div class="row">
+            <div class="col-md-3 ">
+                <div class="list-group">
+                    <a href="{{ url('reguser_settings') }}" id="generalId" class="list-group-item list-group-item-action">General Settings</a>
+                    <a href="{{ url('reguser_newemail') }}" id="changeEmailId" class="list-group-item list-group-item-action">Change Email</a>
+                    <a href="{{ url('reguser_newpassword') }}" id="changePasswordId" class="list-group-item list-group-item-action">Change Password</a>
+                </div>
             </div>
             <div class="col-md-9">
                 <div class="card">

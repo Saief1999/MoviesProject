@@ -1,3 +1,8 @@
+body{
+  background-image: url("../images/104127898_2550260008621004_6814968567938621987_n.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
 #movies img, #movie img{
   width: 100%;
 }
@@ -23,4 +28,7 @@
   [class*='col-sm'] {
     width:100%;
   }
+}
+* {
+  box-sizing: border-box;
 }

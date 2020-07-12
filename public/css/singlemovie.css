@@ -1,20 +1,20 @@
 body {
+    height: 100%;
     margin: 0;
     padding: 0;
-    background-color: #095a83;
+    background-image: url("../images/104127898_2550260008621004_6814968567938621987_n.jpg");
 }
-
 .main_card {
     margin-top: 10px;
     color: #fff;
     width: 1270px;
-    height: 450px;
+    height: 100%;
     margin: 50px auto;
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
     max-width: 770px;
-    max-height: 600px;
+    max-height: 1600px;
     background: #13045c;
     background: -webkit-linear-gradient(to right, #ffffff, #ffffff);
     background: -webkit-gradient(linear, left top, right top, from(#ffffff), to(#ffffff));
@@ -28,9 +28,9 @@ body {
 .card_left {
     width: 90%;
 }
-
 .card_datails {
     width: 90%;
+    height:100%;
     padding: 30px;
     margin-top: -25px;
 }

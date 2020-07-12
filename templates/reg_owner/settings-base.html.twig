@@ -2,20 +2,21 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Settings{% endblock %}
-
+{% block stylesheets %}
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/settings-base.css') }}">
+{% endblock %}
 {% block body %}
-    <div class="container">
-        <div class="row">
-            <div class="col-md-3 ">
-                <div class="list-group ">
+    <div class="container" style="margin-top: 10px; margin-bottom: 10px">
+        <div class="row wrapper">
+            <div class="col-md-3 wrapper">
+                <div class="list-group">
                     <a href="{{ url('regowner_settings') }}" id="generalId" class="list-group-item list-group-item-action">General Settings</a>
                     <a href="{{ url('regowner_cinema') }}" id="changeCinId" class="list-group-item list-group-item-action">Your Cinema</a>
                     <a href="{{ url('regowner_newemail') }}" id="changeEmailId" class="list-group-item list-group-item-action">Change Email</a>
                     <a href="{{ url('regowner_newpassword') }}" id="changePasswordId" class="list-group-item list-group-item-action">Change Password</a>
-
                 </div>
             </div>
-            <div class="col-md-9">
+            <div class="col-md-9 wrapper">
                 <div class="card">
                     <div class="card-body">
                         <div class="row">
