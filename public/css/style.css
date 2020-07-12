@@ -21,6 +21,9 @@
 /*------------------------------------------------------------------ 
     SKELETON
 -------------------------------------------------------------------*/
+p {
+	text-align: justify;
+}
 
 body {
 	color: #666666;
@@ -474,6 +477,7 @@ a.navbar-brand img {
 }
 
 .search-btn {
+	border-radius: 4px;
 	float: right;
 	width: 41px;
 	height: 41px;
@@ -502,6 +506,8 @@ a.navbar-brand img {
 .theme_color {
 	color: #d4a81e;
 }
+
+/*TEST*/
 
 
 /*------------------------------------------------------------------ Banner -------------------------------------------------------------------*/
@@ -1994,7 +2000,7 @@ ul.social_icon li {
 
 .footer_bottom {
     background: #095a83;
-    padding: 15px 0;
+    padding: 10px 0;
 }
 
 .footer_bottom p.crp {
@@ -2156,6 +2162,7 @@ section.inner_banner h3 {
 	padding: 0 10px;
 	border: solid #000 1px;
 	height: 41px;
+	border-radius: 4px;
 }
 
 .top-header.fixed-menu ul li a:hover
