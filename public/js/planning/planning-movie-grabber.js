@@ -138,7 +138,7 @@ $(document).ready(function(){
             .then(function (response) {
                 let movie=response.data;
                 let poster= (movie.poster_path!=null)?"https://image.tmdb.org/t/p/w500"+movie.poster_path:"/images/altImageMovie/notfoundLast.png" ;
-                link.css({"background-image":"url('"+poster+"')", "background-size": "100% 380px"});
+                link.css({"background-image":"url('"+poster+"')", "background-size": "100%","object-fit": "cover"});
 
             } )
             .catch(function (error) {

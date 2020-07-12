@@ -9,7 +9,7 @@
 {% block body %}
 
 <h4 align="center">Planning Starting : {{ planning.startingDate.format("d/M/Y") }}</h4>
-  {% if app.user and app.user.roles[0] == "ROLE_CIN_OWNER" %}
+  {% if ( isOwner ) %}
   {#live search#}
   <style>
     #result {
@@ -56,11 +56,11 @@
         </div>
         <div class="col-sm-2">
          <label for="starting_time" >Starting Time</label>
-         <input class="form-control" type="time" value="13:45:00" id="starting_time" name="_sTime">
+         <input class="form-control" type="time" value="08:00:00" id="starting_time" name="_sTime">
         </div>
         <div class="col-sm-2">
          <label for="ending_time" >Ending Time</label>
-         <input class="form-control" type="time" value="13:45:00" id="ending_time" name="_eTime">
+         <input class="form-control" type="time" value="10:00:00" id="ending_time" name="_eTime">
         </div>
       </div>
       <div class="mt-2">
