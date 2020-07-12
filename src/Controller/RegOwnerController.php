@@ -36,7 +36,6 @@ class RegOwnerController extends AbstractController
      * @Route("/regowner/settings",name="regowner_settings")
      */
     public function settings(Request $request, CinemaOwner $cinemaOwner = null,ImageSaverService $saver) {
-        $session = $this->get('session');
         $cinemaOwneruser = $this->getUser();
         $repository =$this->getDoctrine()->getRepository(CinemaOwner::class);
         $cinemaOwner=$repository->findOneBy(array('user'=>$cinemaOwneruser));
@@ -106,8 +105,6 @@ class RegOwnerController extends AbstractController
     {   $cinemaOwneruser = $this->getUser();
         $repository =$this->getDoctrine()->getRepository(CinemaOwner::class);
         $owner=$repository->findOneBy(array('user'=>$cinemaOwneruser));
-
-
         $cinemaOwner=$em->getRepository(CinemaOwner::class)
                     ->findOneBy(array('user'=>$this->getUser()));
         $cinema = $cinemaOwner->getCinema() ;
@@ -121,7 +118,6 @@ class RegOwnerController extends AbstractController
             $em->flush() ;
             $this->addFlash("success",'Cinema Informations Changed Succefully');
         }
-
         return $this->render("reg_owner/settings_pages/cinema.html.twig",["form"=>$form->createView(),"imgPath"=>$cinema->getImagePath()]) ;
     }
 }

@@ -70,7 +70,7 @@
                         <li><a class="nav-link" href="{{ url('cinemas') }}">Cinemas</a></li>
                         <li><a class="nav-link" href="{{ url('movies') }}">Movies</a></li>
                         <li><a class="nav-link" href="#">News</a></li>
-                        <li><a class="nav-link" href="#bottom">Contact us</a></li>
+                        <li><a class="nav-link" href="{{ url('contact_us') }}">Contact us</a></li>
                         {% if app.user and app.user.roles[0]=="ROLE_REG_USER" %}
 
                             <li class="nav-item dropdown">
