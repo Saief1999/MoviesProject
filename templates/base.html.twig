@@ -137,9 +137,9 @@
                            <img src="{{ asset('images/footer_logo2.png') }}" alt="#" />
                        </div>
                        <div class="full white_fonts">
-                           <p>All rights reserved. Well we didn't think about that,we thought future is opting for open source
+              {#             <p>All rights reserved. Well we didn't think about that,we thought future is opting for open source
                            as it helps building better websites with better services nevertheless there is no rights in this
-                           project.So enjoy </p>
+                           project.So enjoy </p>#}
                        </div>
                    </div>
                </div>
@@ -148,11 +148,11 @@
                    <div class="footer_blog footer_menu white_fonts">
                        <h3>Quick links</h3>
                        <ul>
-                           <li><a href="#">> Join Us</a></li>
-                           <li><a href="#">> Maintenance</a></li>
-                           <li><a href="#">> Language Packs</a></li>
-                           <li><a href="#">> LearnPress</a></li>
-                           <li><a href="#">> Release Status</a></li>
+                           <li><a href="{{ url('app_register') }}">> Join Us</a></li>
+                           <li><a href="{{ url('movies') }}">> Movies</a></li>
+                           <li><a href="{{ url('cinemas') }}">> Cinemas</a></li>
+                           <li><a href="{{ url('plannings') }}">> Plannings</a></li>
+                           <li><a href="{{ url('contact_us') }}">> Contact Us</a></li>
                        </ul>
                    </div>
                </div>
@@ -171,7 +171,7 @@
                </div>
 
                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
-                   <div class="footer_blog full white_fonts">
+                   <div class="footer_blog full white_fonts" id="contact-us">
                        <h3>Contact us</h3>
                        <ul class="full">
                            <li><img src="{{ asset('images/i5.png') }}"><span>chargiya centre urbain nord<br>tunis</span></li>
@@ -191,7 +191,7 @@
        <div class="container">
            <div class="row">
                <div class="col-12">
-                   <p class="crp">© do we need copyrights in 2020 ? :p </p>
+                   <p class="crp">© All rights Reserved  </p>
                </div>
            </div>
        </div>
@@ -214,6 +214,7 @@
    <script src="{{ asset('js/images-loded.min.js') }}" ></script>
    <script src="{{ asset('js/custom.js') }}"></script>
    <script src="{{ asset('node_modules/bootstrap-select/dist/js/bootstrap-select.min.js') }}"></script>
+    <script src="{{ asset('js/smooth-scroll/smooth-scroll.js') }}"></script>
    <script>
 
 
