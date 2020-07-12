@@ -3,6 +3,7 @@ body {
 }
 
 #exTab1 .tab-content {
+    text-align: center;
     color : white;
     background-color: #428bca;
     padding : 5px 15px;
@@ -11,7 +12,6 @@ body {
     border-radius: 0;
 }
 .container{
-    margin:0 auto;
     text-align: center;
 }
 .row{
