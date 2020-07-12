@@ -4,3 +4,5 @@ twig:
     strict_variables: '%kernel.debug%'
     exception_controller: null
     form_themes: ['bootstrap_4_layout.html.twig']
+    paths:
+          '%kernel.project_dir%/vendor/brokoskokoli/star-rating-bundle/Resources/views': BrokoskokoliStarRatingBundle

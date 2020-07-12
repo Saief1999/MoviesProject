@@ -1,4 +1,7 @@
 {
+    "brokoskokoli/star-rating-bundle": {
+        "version": "v4.0.0"
+    },
     "doctrine/annotations": {
         "version": "1.0",
         "recipe": {

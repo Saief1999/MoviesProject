@@ -3,6 +3,7 @@
 {% block stylesheets %}
     <link rel="stylesheet" type="text/css" href="{{ asset('css/bootstrap.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('css/singlecinema1.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('bundles/starrating/css/rating.css') }}" />
 {% endblock %}
 {% block body %}
     <div class= 'containerx'>
@@ -53,9 +54,18 @@
         </div>
     </div>
     <div class="overlay"></div>
-    <div class="comment-section">
+        <div style="text-align: center">
+        <h2>Your Rating</h2>
+            {% if YourRating is defined %}
+            {{ YourRating }}
+            {% else %}
+            {{ form_start(Ratingform) }}
+            {{ form_end(Ratingform) }}
+            {% endif %}
+        </div>
+     <div class="comment-section">
         <br />
-        <h2 align="center"><a href="#">Comment System using PHP and Ajax</a></h2>
+        <h2 align="center"><a href="#">Comment Section</a></h2>
         <br />
         <div class="container">
             <form method="POST" id="comment_form">
@@ -83,4 +93,6 @@
     <script type="text/javascript" src="{{ asset('js/seemoreseeless.js') }}"></script>
     <script type="text/javascript">
     </script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+    <script src="{{ asset('bundles/starrating/js/rating.js') }}"></script>
 {% endblock %}

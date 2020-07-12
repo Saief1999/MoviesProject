@@ -64,10 +64,15 @@ class Cinema
      */
     private $plannings;
 
+    /**
+     * @ORM\OneToMany(targetEntity=CinemaRating::class, mappedBy="cinema", orphanRemoval=true)
+     */
+    private $ratings;
     public function __construct()
     {
         $this->tblComments = new ArrayCollection();
         $this->plannings = new ArrayCollection();
+        $this->ratings = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -220,4 +225,36 @@ class Cinema
 
         return $this;
     }
+
+    /**
+     * @return Collection|CinemaRating[]
+     */
+    public function getRatings(): Collection
+    {
+        return $this->ratings;
+    }
+
+    public function addRating(CinemaRating $rating): self
+    {
+        if (!$this->ratings->contains($rating)) {
+            $this->ratings[] = $rating;
+            $rating->setMyCinema($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRating(CinemaRating $rating): self
+    {
+        if ($this->ratings->contains($rating)) {
+            $this->ratings->removeElement($rating);
+            // set the owning side to null (unless already changed)
+            if ($rating->getMyCinema() === $this) {
+                $rating->setMyCinema(null);
+            }
+        }
+
+        return $this;
+    }
 }
+
