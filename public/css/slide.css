@@ -1,0 +1,90 @@
+.fade-in {
+    animation: fadeIn ease 5s;
+    -webkit-animation: fadeIn ease 5s;
+    -moz-animation: fadeIn ease 5s;
+    -o-animation: fadeIn ease 5s;
+    -ms-animation: fadeIn ease 5s;
+}
+@keyframes fadeIn {
+    0% {opacity:0;}
+    100% {opacity:1;}
+}
+body{
+    background-color: #095a83;
+}
+@-moz-keyframes fadeIn {
+    0% {opacity:0;}
+    100% {opacity:1;}
+}
+
+@-webkit-keyframes fadeIn {
+    0% {opacity:0;}
+    100% {opacity:1;}
+}
+
+@-o-keyframes fadeIn {
+    0% {opacity:0;}
+    100% {opacity:1;}
+}
+
+@-ms-keyframes fadeIn {
+    0% {opacity:0;}
+    100% {opacity:1;}
+}
+
+.hover10 img {
+    -webkit-filter: grayscale(0) blur(0);
+    filter: blur(0);
+    border:0.3em solid #d5b545;
+    border-radius: 5%;
+    -webkit-transition: .3s ease-in-out;
+    transition: .3s ease-in-out;
+}
+.hover10 :hover img {
+    -webkit-filter: grayscale(100%) blur(3px);
+    filter: blur(3px);
+}
+.buttonx {
+    position: absolute;
+    width: 100px;
+    left:50%;
+    top: 40%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    text-align: center;
+    opacity: 0;
+    transition: opacity .35s ease;
+}
+
+img:hover + .buttonx, .buttonx:hover {
+    opacity: 1;
+}
+a.buttonx {
+    display:inline-block;
+    padding:0.35em 1.2em;
+    border:0.3em solid #d5b545;
+    margin:0 0.3em 0.3em 0;
+    border-radius:5%;
+    box-sizing: border-box;
+    text-decoration:none;
+    font-family:inherit;
+    font-weight:300;
+    color: #d5b545;
+    text-align:center;
+    transition: all 0.2s;
+    opacity: 0;
+}
+a.buttonx:hover{
+    color: #FFFFFF;
+    background-color: #d5b545;
+}
+@media all and (max-width:30em){
+     a.buttonx{
+        display:block;
+        margin:0.4em auto;
+         }
+}
+h5{
+    margin-top: 10px;
+    color:whitesmoke;
+}

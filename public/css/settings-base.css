@@ -1,0 +1,22 @@
+body {
+    background-color: #095a83;
+}
+
+#exTab1 .tab-content {
+    color : white;
+    background-color: #428bca;
+    padding : 5px 15px;
+}
+#exTab1 .nav-pills > li > a {
+    border-radius: 0;
+}
+.container{
+    margin:0 auto;
+    text-align: center;
+}
+.row{
+    text-align: center;
+}
+
+
+

@@ -30,9 +30,11 @@ function getMovies(searchText,page=1){
         output+=`
           <div class="col-sm-3">
             <div class="well text-center">
-              <img src="${poster}" alt="image">
+                <div>
+                    <img src="${poster}" alt="image">
+                    <a onclick="movieSelected('${movie.id}')" class="buttonx" href="movie"><strong>Movie Details</strong></a>
+                 </div>
               <h5>${movie.title}</h5>
-              <a onclick="movieSelected('${movie.id}')" class="btn btn-primary" href="movie">Movie Details</a>
             </div>
           </div>
         `;
@@ -90,32 +92,29 @@ function getMovie(){
             +((i==movie.production_companies.length-1)? "":" , "); }
 
         let output = `
-        <div class="row">
-          <div class="col-md-4">
-            <img src="${poster}" class="thumbnail" alt="image">
-          </div>
-          <div class="col-md-8">
-            <h2>${movie.title}</h2>
-            <ul class="list-group">
-              <li class="list-group-item"><strong>Genre:</strong> ${genres}</li>
-              <li class="list-group-item"><strong>Released:</strong> ${movie.release_date}</li>
-              <li class="list-group-item"><strong>Rated:</strong> ${movie.vote_average}/10</li>
-              <li class="list-group-item"><strong>Runtime:</strong> ${movie.runtime} min.</li>
-              <li class="list-group-item"><strong>Production Companies:</strong> ${production_companies}</li>
-            </ul>
-          </div>
-        </div>
-        <div class="row">
-          <div class="well">
-            <h3>Plot</h3>
-            ${movie.overview}
-            <hr>
-            <div style="margin-bottom: 10px">
-                <a href="http://imdb.com/title/${movie.imdb_id}" target="_blank" class="btn btn-primary">View IMDB</a>
-                <a href="movies" class="btn btn-default">Go Back To Search</a>
-            </div>
-          </div>
-        </div>
+        <div class="wrapper">
+	<div class="main_card">
+		<div class="card_left">
+			<div class="card_datails">
+				<h1>${movie.title}</h1>
+				<p class="disc">${movie.overview}</p>
+				<hr>
+				<p><strong>Release date : </strong>${movie.release_date}</p>
+				<p><strong>Genres : </strong>${genres} </p>
+				<p><strong>Runtime : </strong>${movie.runtime} min.</p>
+				<a href="http://imdb.com/title/${movie.imdb_id}" target="_blank">Read More on IMDB</a>
+			</div>
+		</div>
+		<div class="card_right">
+			<div class="img_container">
+				<img src="${poster}" alt="">
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
     `;
     $('#movie').html(output);
     })
