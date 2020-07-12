@@ -28,6 +28,13 @@ Contact Us
 
     <div class="section layout_padding contact_section" style="background:#f6f6f6;">
         <div class="container">
+            {% for el in app.session.flashBag.get("success") %}
+                <div class="alert alert-success">{{ el }}</div>
+            {% endfor %}
+
+            {% for el in app.session.flashBag.get("error") %}
+                <div class="alert alert-danger">{{ el }}</div>
+            {% endfor %}
             <div class="row">
                 <div class="col-lg-8 col-md-8 col-sm-12">
                     <div class="full float-right_img">
@@ -36,25 +43,26 @@ Contact Us
                 </div>
                 <div class="col-lg-4 col-md-4 col-sm-12">
                     <div class="contact_form">
-                        <form action="contact.html">
+               {{ form_start(form) }}
                             <fieldset>
                                 <div class="full field">
-                                    <input type="text" placeholder="Your Name" name="your name" />
+                                    {{ form_widget(form.name,{ 'attr': {'placeholder': 'Your Name' }}) }}
                                 </div>
                                 <div class="full field">
-                                    <input type="email" placeholder="Email Address" name="Email" />
+                                    {{ form_widget(form.email, {'attr' :{  'placeholder': 'Your Email' }}) }}
                                 </div>
-                                <div class="full field">
+{#                                <div class="full field">
                                     <input type="phn" placeholder="Phone Number" name="Phone number" />
-                                </div>
+                                </div>#}
                                 <div class="full field">
-                                    <textarea placeholder="Massage"></textarea>
+                                    {{ form_widget(form.message, {'attr' : {'placeholder' : 'Your Message' }}) }}
                                 </div>
+
                                 <div class="full field">
-                                    <div class="center"><button>Send</button></div>
+                                    <div class="center"><button type="submit">Send</button></div>
                                 </div>
                             </fieldset>
-                        </form>
+                        {{ form_end(form) }}
                     </div>
                 </div>
             </div>
