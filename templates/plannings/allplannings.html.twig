@@ -1,0 +1,118 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Plannings{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" type="text/css" href="{{ asset("css/allplannings/plannings-css.css") }}">
+{% endblock %}
+{% block body %}
+
+<div class="container">
+    <h3 class="h3">All plannings </h3>
+    <div class="row">
+        {% for planning in plannings %}
+        <div class="col-md-3 col-sm-6">
+            <div class="product-grid6">
+                <div class="product-image6">
+                    <a href="{{ url('planning',{'id': planning.id}) }}">
+                        <img class="pic-1" src="{{ asset('uploads/cinema/'~ planning.cinema.imagePath) }}">
+                    </a>
+                </div>
+                <div class="product-content">
+                    <div class="h6"><a href="#">{{ planning.cinema.name }}</a></div>
+                    <div class="dates">
+                        <div><i class="fa fa fa-calendar"></i> From :{{ planning.startingDate.format("d-m-Y")}} </div>
+                        <div><i class="fa fa fa-calendar"></i> To :{{ toDates[loop.index0]  }} </div>
+                    </div>
+                </div>
+                <ul class="social">
+                    <li><a href="{{ url('planning',{'id' : planning.id}) }}" data-tip="Show Planning"><i class="fa fa fa-calendar"></i></a></li>
+                    <li><a href="{{ url('cinema',{'id' : planning.cinema.id}) }}" data-tip="Show Cinema"><i class="fa fa-film"></i></a></li>
+                </ul>
+            </div>
+        </div>
+        {% endfor %}
+{#        <div class="col-md-3 col-sm-6">
+            <div class="product-grid6">
+                <div class="product-image6">
+                    <a href="#">
+                        <img class="pic-1" src="http://bestjquery.com/tutorial/product-grid/demo10/images/img-1.jpg">
+                    </a>
+                </div>
+                <div class="product-content">
+                    <h3 class="title"><a href="#">Men's Shirt</a></h3>
+                    <div class="price">$11.00
+                        <span>$14.00</span>
+                    </div>
+                </div>
+                <ul class="social">
+                    <li><a href="" data-tip="Quick View"><i class="fa fa-search"></i></a></li>
+                    <li><a href="" data-tip="Add to Wishlist"><i class="fa fa-shopping-bag"></i></a></li>
+                    <li><a href="" data-tip="Add to Cart"><i class="fa fa-shopping-cart"></i></a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-3 col-sm-6">
+            <div class="product-grid6">
+                <div class="product-image6">
+                    <a href="#">
+                        <img class="pic-1" src="http://bestjquery.com/tutorial/product-grid/demo10/images/img-2.jpg">
+                    </a>
+                </div>
+                <div class="product-content">
+                    <h3 class="title"><a href="#">Women's Red Top</a></h3>
+                    <div class="price">$8.00
+                        <span>$12.00</span>
+                    </div>
+                </div>
+                <ul class="social">
+                    <li><a href="" data-tip="Quick View"><i class="fa fa-search"></i></a></li>
+                    <li><a href="" data-tip="Add to Wishlist"><i class="fa fa-shopping-bag"></i></a></li>
+                    <li><a href="" data-tip="Add to Cart"><i class="fa fa-shopping-cart"></i></a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-3 col-sm-6">
+            <div class="product-grid6">
+                <div class="product-image6">
+                    <a href="#">
+                        <img class="pic-1" src="http://bestjquery.com/tutorial/product-grid/demo10/images/img-3.jpg">
+                    </a>
+                </div>
+                <div class="product-content">
+                    <h3 class="title"><a href="#">Men's Shirt</a></h3>
+                    <div class="price">$11.00
+                        <span>$14.00</span>
+                    </div>
+                </div>
+                <ul class="social">
+                    <li><a href="" data-tip="Quick View"><i class="fa fa-search"></i></a></li>
+                    <li><a href="" data-tip="Add to Wishlist"><i class="fa fa-shopping-bag"></i></a></li>
+                    <li><a href="" data-tip="Add to Cart"><i class="fa fa-shopping-cart"></i></a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-3 col-sm-6">
+            <div class="product-grid6">
+                <div class="product-image6">
+                    <a href="#">
+                        <img class="pic-1" src="http://bestjquery.com/tutorial/product-grid/demo10/images/img-4.jpg">
+                    </a>
+                </div>
+                <div class="product-content">
+                    <h3 class="title"><a href="#">Men's Shirt</a></h3>
+                    <div class="price">$11.00
+                        <span>$14.00</span>
+                    </div>
+                </div>
+                <ul class="social">
+                    <li><a href="" data-tip="Quick View"><i class="fa fa-search"></i></a></li>
+                    <li><a href="" data-tip="Add to Wishlist"><i class="fa fa-shopping-bag"></i></a></li>
+                    <li><a href="" data-tip="Add to Cart"><i class="fa fa-shopping-cart"></i></a></li>
+                </ul>
+            </div>
+        </div>#}
+
+    </div>
+</div>
+{% endblock %}

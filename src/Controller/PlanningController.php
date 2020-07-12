@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Entity\Cinema;
+use App\Entity\CinemaOwner;
 use App\Entity\Movie;
 use App\Entity\MovieGenre;
 use App\Entity\MoviePlanning;
@@ -26,6 +28,15 @@ class PlanningController extends AbstractController
     {
         if ($planning==null) return $this->render("404.html.twig") ;
         else {
+            $isOwner = false ;
+            $cinemaOwneruser = $this->getUser();
+            if ($cinemaOwneruser!=null)
+            {$repository =$this->getDoctrine()->getRepository(CinemaOwner::class);
+            $owner=$repository->findOneBy(array('user'=>$cinemaOwneruser));
+            $cinema = $owner->getCinema() ;
+                if ($cinema->getId()== $planning->getId())
+                { $isOwner = true  ; }
+            }
 
             /**
              * The schedule is done with this model :
@@ -41,7 +52,7 @@ class PlanningController extends AbstractController
             }
             $shuffler->shuffle($schedule);
             return $this->render('planning/planning.html.twig', [
-                "schedule"=>$schedule,"planning"=>$planning]);
+                "schedule"=>$schedule,"planning"=>$planning,"isOwner"=>$isOwner]);
         }
 
     }
@@ -49,11 +60,16 @@ class PlanningController extends AbstractController
     /**
      * @Route("/regowner/plannings",name="myplannings")
      */
-    public function plannings(\Symfony\Component\HttpFoundation\Request $request)
+    public function plannings(\Symfony\Component\HttpFoundation\Request $request,EntityManagerInterface $em)
     {
+        $cinemaOwneruser = $this->getUser();
+        $repository =$this->getDoctrine()->getRepository(CinemaOwner::class);
+        $owner=$repository->findOneBy(array('user'=>$cinemaOwneruser));
+        $cinema = $owner->getCinema() ;
+
         $pageActuelle = $request->query->get('page')??1;
         $repo = $this->getDoctrine()->getRepository(Planning::class);
-        $response = $repo->findBy([], ["id"=>"DESC"], 10, ($pageActuelle==1) ?0: ($pageActuelle)* 10-1 );
+        $response = $repo->findBy(["cinema"=>$cinema], ["id"=>"DESC"], 10, ($pageActuelle==1) ?0: ($pageActuelle)* 10-1 );
         $secondResponse =[] ;
         $i=0 ;
         foreach ($response as $element)
@@ -72,6 +88,13 @@ class PlanningController extends AbstractController
     public function addPlanning(EntityManagerInterface $em,\Symfony\Component\HttpFoundation\Request $request)
     {
         $planning =new Planning() ;
+        // Getting Cinema from user
+        $cinemaOwneruser = $this->getUser();
+        $repository =$this->getDoctrine()->getRepository(CinemaOwner::class);
+        $owner=$repository->findOneBy(array('user'=>$cinemaOwneruser));
+        $cinema = $owner->getCinema() ;
+
+        $planning->setCinema($cinema);
         $form=$this->createForm(PlanningFormType::class,$planning);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid())
@@ -101,7 +124,6 @@ class PlanningController extends AbstractController
     }
 
     /**
-     *
      * @Route("regowner/planning/{id}/addmovie",name="movie_add")
      */
 
@@ -201,7 +223,7 @@ class PlanningController extends AbstractController
 
     /**
      *
-     * @Route("/regowner/planning/showplot/{id}",name="movie_plot")
+     * @Route("planning/showplot/{id}",name="movie_plot")
      */
 
     public function fetchPlot(EntityManagerInterface $em ,$id)

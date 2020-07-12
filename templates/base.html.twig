@@ -66,10 +66,9 @@
                 <div class="collapse navbar-collapse justify-content-end" id="navbar-wd">
                     <ul class="navbar-nav ">
                         <li><a class="nav-link active " href="{{ url('home') }}">Home</a></li>
-                       {# <li><a class="nav-link" href="about.html">About</a></li>#}
-                        <li><a class="nav-link" href="{{ url('cinemas') }}">Cinemas</a></li>
                         <li><a class="nav-link" href="{{ url('movies') }}">Movies</a></li>
-                        <li><a class="nav-link" href="#">News</a></li>
+                        <li><a class="nav-link" href="{{ url('cinemas') }}">Cinemas</a></li>
+                        <li><a class="nav-link" href="{{ url('plannings') }}">Plans</a></li>
                         <li><a class="nav-link" href="{{ url('contact_us') }}">Contact us</a></li>
                         {% if app.user and app.user.roles[0]=="ROLE_REG_USER" %}
 
@@ -111,17 +110,14 @@
                             </li>
                         {% endif %}
 
-
-
-
                     </ul>
                 </div>
-                <div class="search-box">
+{#                <div class="search-box">
                     <input type="text" class="search-txt" placeholder="Search">
                     <a class="search-btn">
                         <img src="{{ asset('images/search_icon.png') }}" alt="#" />
                     </a>
-                </div>
+                </div>#}
             </div>
         </nav>
     </header>

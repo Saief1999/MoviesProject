@@ -59,9 +59,15 @@ class Cinema
      */
     private $tblComments;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Planning::class, mappedBy="cinema", orphanRemoval=true)
+     */
+    private $plannings;
+
     public function __construct()
     {
         $this->tblComments = new ArrayCollection();
+        $this->plannings = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -178,6 +184,37 @@ class Cinema
             // set the owning side to null (unless already changed)
             if ($tblComment->getCinema() === $this) {
                 $tblComment->setCinema(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Planning[]
+     */
+    public function getPlannings(): Collection
+    {
+        return $this->plannings;
+    }
+
+    public function addPlanning(Planning $planning): self
+    {
+        if (!$this->plannings->contains($planning)) {
+            $this->plannings[] = $planning;
+            $planning->setCinema($this);
+        }
+
+        return $this;
+    }
+
+    public function removePlanning(Planning $planning): self
+    {
+        if ($this->plannings->contains($planning)) {
+            $this->plannings->removeElement($planning);
+            // set the owning side to null (unless already changed)
+            if ($planning->getCinema() === $this) {
+                $planning->setCinema(null);
             }
         }
 

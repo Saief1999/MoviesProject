@@ -29,6 +29,12 @@ class Planning
      */
     private $moviePlannings;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Cinema::class, inversedBy="plannings")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $cinema;
+
     public function __construct()
     {
         $this->moviePlannings = new ArrayCollection();
@@ -78,6 +84,18 @@ class Planning
                 $moviePlanning->setPlanning(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getCinema(): ?Cinema
+    {
+        return $this->cinema;
+    }
+
+    public function setCinema(?Cinema $cinema): self
+    {
+        $this->cinema = $cinema;
 
         return $this;
     }
