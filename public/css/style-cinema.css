@@ -32,7 +32,7 @@ p{
 }
 
 .containercinema li {
-    border-radius: 5%;
+    border-radius: 3%;
     display: flex;
     flex-direction: row;
     width: 100%;
