@@ -1,13 +1,14 @@
 <?php
-
 namespace App\Repository;
 
 use App\Entity\Cinema;
 use App\Entity\CinemaRating;
 use App\Entity\TblComment;
+use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @method CinemaRating|null find($id, $lockMode = null, $lockVersion = null)
@@ -50,37 +51,33 @@ class CinemaRatingRepository extends ServiceEntityRepository
         ;
     }
     */
-   public function disableAllOldRatings(Cinema $cinema, TblComment $tblComment)
+   public function disableAllOldRatings(Cinema $cinema, User $user)
     {    // $name=$tblComment->getCommentSenderName();
         $query = $this->getEntityManager()
             ->createQuery('
                 UPDATE App:CinemaRating rr
                 SET rr.enabled = 0
-                WHERE rr.name = :name
+                WHERE rr.user = :user
                 AND rr.cinema = :cinema
             ')
         ;
         $query->execute([
-            'name' => $tblComment->getCommentSenderName(),
+            'user' =>$user,
             'cinema' => $cinema->getId(),
         ]);
     }
 
-    public function getRatingFromUser(Cinema $cinema, TblComment $tblComment) : ?CinemaRating
+    public function getRatingFromUser(Cinema $cinema, User $user) : ?CinemaRating
     {
-        $name = $tblComment->getCommentSenderName();
         $queryBuilder = $this->createQueryBuilder('rr');
-        $queryBuilder->andWhere('rr.name = :name');
+        $queryBuilder->andWhere('rr.user = :user');
         $queryBuilder->andWhere('rr.cinema = :cinema');
         $queryBuilder->andWhere('rr.enabled = 1');
-        $queryBuilder->setParameter('name', $name);
+        $queryBuilder->setParameter('user', $user);
         $queryBuilder->setParameter('cinema', $cinema);
-        $queryBuilder->orderBy('rr.createdAt', 'DESC');
+/*        $queryBuilder->orderBy('rr.createdAt', 'DESC');*/
         $queryBuilder->setMaxResults(1);
-
-
             return $queryBuilder->getQuery()->getOneOrNullResult();
-
     }
 
     /**
@@ -92,9 +89,8 @@ class CinemaRatingRepository extends ServiceEntityRepository
         $queryBuilder = $this->createQueryBuilder('rr');
         $queryBuilder->andWhere('rr.cinema = :cinema');
         $queryBuilder->setParameter('cinema', $cinema);
-        $queryBuilder->groupBy('rr, rr.name');
+        $queryBuilder->groupBy('rr, rr.user');
         $queryBuilder->andWhere('rr.enabled = 1');
-
         return $queryBuilder->getQuery()->getResult();
     }
 }

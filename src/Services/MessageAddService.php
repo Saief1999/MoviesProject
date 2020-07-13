@@ -2,38 +2,36 @@
 
 namespace App\Services;
 
+use App\Entity\Cinema;
 use App\Entity\TblComment;
 use Doctrine\ORM\EntityManagerInterface;
-use PDO;
+use Psr\Container\ContainerInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 class MessageAddService
 {
     private $em ;
+    private $ratingHelper ;
+    private $container  ;
 
-
-    public function __construct(EntityManagerInterface $em)
+    public function __construct(EntityManagerInterface $em,CinemaRatingService $cinemaRatingService,ContainerInterface $container)
     {
         $this->em=$em ;
-
+        $this->ratingHelper= $cinemaRatingService ;
+        $this->container = $container ;
     }
 
-    public function addmessage($cinema)
+    public function addmessage($cinema,UserInterface $user)
     {
-        //add_comment.php
-
-        $connect = new PDO('mysql:host=localhost;dbname=webproject', 'root', '');
-
         $error = '';
-        $comment_name = '';
+
         $comment_content = '';
         $time= new \DateTime() ;
 
-        if (empty($_POST["comment_name"])) {
-            $error .= '<p class="text-danger"> Name is required</p>';
-        } else {
-            $comment_name = $_POST["comment_name"];
+        if (!isset($user))
+        {
+            $error .= '<p class="text-danger"> User isnt logged in</p>';
         }
-
         if (empty($_POST["comment_content"])) {
             $error .= '<p class="text-danger"> Comment is required</p>';
         } else {
@@ -42,21 +40,14 @@ class MessageAddService
 
         if ($error == '') {
 
-            $query = "
-                 INSERT INTO tbl_comment 
-                 (cinema_id, comment, comment_sender_name,reply_time) 
-                 VALUES (:cinema_id, :comment, :comment_sender_name,:reply_time)";
+            $comment = new TblComment() ;
+            $comment->setCinema($cinema) ;
+            $comment->setUser($user) ;
+            $comment->setReplyTime($time) ;
+            $comment->setComment($comment_content) ;
 
-
-            $statement = $connect->prepare($query);
-            $statement->execute(
-                array(
-                    ':cinema_id' => $cinema->getId(),
-                    ':comment' => $comment_content,
-                    ':comment_sender_name' => $comment_name,
-                    ':reply_time'=>$time->format("Y-m-d H:i:s")
-                )
-            );
+            $this->em->persist($comment);
+            $this->em->flush();
             $error = '<label class="text-success">Comment Added</label>';
         }
 
@@ -70,37 +61,33 @@ class MessageAddService
 
     public function fetchmessage($cinema)
     {
-            //fetch_comment.php
-
-        $connect = new PDO('mysql:host=localhost;dbname=webproject', 'root', '');
-
-        $query = "SELECT * FROM tbl_comment 
-                WHERE cinema_id = :cinema_id
-                ORDER BY reply_time ASC ";
-
-        $statement = $connect->prepare($query);
-
-        $statement->execute(array(':cinema_id'=>$cinema->getId()));
-
-        $result = $statement->fetchAll();
+       $comments= $this->em->getRepository(TblComment::class)->findBy(['cinema'=>$cinema]) ;
+       $ratings = [] ;
+      // $repo = $this->em->getRepository(CinemaRating::class) ;
+       $i=0  ;
+       foreach ($comments as $comment)
+       {$ratings[$i]=$this->ratingHelper->getRating($cinema,$comment->getUser()) ;
+       $i++ ;
+       }
+        $twig = $this->container->get('twig');
         $output = '';
-        foreach ($result as $row) {
+
+        foreach ($comments as $key=>$comment) {
+            $ratingOutput=$twig->render("cinemas/renderRating.html.twig",["rating"=>$ratings[$key]->getRating()]) ;
             $output .= '
                      <div class="panel panel-default">
-                      <div class="panel-heading">By <b>' . $row["comment_sender_name"] . '</b> on <i>' . $row["reply_time"] . '</i></div>
-                      <div class="panel-body">' . $row["comment"] . '</div>
-                                <div class="panel-footer" align="right"><button type="button" class="btn btn-info reply" id="' . $row["id"] . '">Reply</button></div>
+                      <div class="panel-heading">By <b>' . $comment->getUser()->getUsername() . '</b> on <i>' . $comment->getReplyTime()->format("d-m-Y \A\\t H:i:s") . '</i>
+                        '.$ratingOutput.'
+                      </div>
+                      <div class="panel-body">' . $comment->getComment() . '</div>
+                       <br/>
                      </div> 
                      ';
-
-
         //    $output .= get_reply_comment($connect, $row["comment_id"]);
         }
 /*
         echo $output;*/
-
         return $output ;
-
     }
 
 }

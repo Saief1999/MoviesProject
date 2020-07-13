@@ -7,6 +7,7 @@ use App\Form\ChangeEmailFormType;
 use App\Form\CinemaFormType;
 use App\Form\CinemaOwnerFormType;
 use App\Form\NewPasswordFormType;
+use App\Services\CinemaRatingService;
 use App\Services\EmailChanger;
 use App\Services\ImageSaverService;
 use App\Services\PasswordChanger;
@@ -21,15 +22,17 @@ class RegOwnerController extends AbstractController
     /**
      * @Route("/regowner/profile", name="regowner_profile")
      */
-    public function profile(Request $request, CinemaOwner $cinemaOwner = null)
+    public function profile(Request $request, CinemaOwner $cinemaOwner = null,CinemaRatingService $ratingService)
     {    $session = $this->get('session');
         $cinemaOwneruser = $this->getUser();
         $repository =$this->getDoctrine()->getRepository(CinemaOwner::class);
         $cinemaOwner=$repository->findOneBy(array('user'=>$cinemaOwneruser));
         $profileImage='/uploads/cinema/'.$cinemaOwner->getCinema()->getImagePath();
+        $rating =$ratingService->getRatingGlobal($cinemaOwner->getCinema()) ;
         return $this->render('reg_owner/profile.html.twig', [
             'cinemaowner' => $cinemaOwner,
-            'profileImage'=>$profileImage
+            'profileImage'=>$profileImage ,
+            'rating' =>$rating??0
         ]);
     }
     /**

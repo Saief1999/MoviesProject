@@ -130,9 +130,9 @@
                                 itself crowned with an average, which makes WhereToWatch an aggregator site.
                                 of reviews comparable to Rotten Tomatoes in the United States.</p>
                         </div>
-                        <div class="full">
+{#                        <div class="full">
                             <a class="hvr-radial-out button-theme" href="#">About more</a>
-                        </div>
+                        </div>#}
                     </div>
                 </div>
                 <div class="col-md-6">
@@ -207,29 +207,19 @@
                         {% for i in 0..4 %}
                             <br>
                         {% endfor %}
-                        <img src="{{ asset("images/Colisee.jpg") }}" alt="#"/>
+                        <img src="{{ asset("uploads/cinema/"~colisee.imagePath) }}" alt="colisee"/>
                     </div>
                 </div>
                 <div class="col-md-6 layout_padding_2">
                     <div class="full">
                         <div class="heading_main text_align_left">
-                            <h2><span>Le Colisee</span></h2>
+                            <h2><span>{{ colisee.name }}</span></h2>
                         </div>
                         <div class="full">
-                            <p>The Colosseum sits in the heart of Tunis, at the confluence of the three main avenues of
-                                the city.
-                                Immense by its proportions, this building was built in 1931 on the initiative of the
-                                Italian industrialist Giuseppe Canino.
-                                The sponsor of this monumental building had entrusted the work to engineer Salvatore
-                                Aghilone, who would then follow the plans of two French architects: Marcel Royer and
-                                Georges Piollenc.
-                                With a simple structure, clearly structured, the Colosseum is characteristic of the Art
-                                Deco style that had dominated in Tunis since the 1920s.
-                                Obviously, we all have something of the Colosseum in us!
-                                Today, the Colosseum continues to dominate the main avenue of Tunis.</p>
+                            <p>{{ colisee.description }}</p>
                         </div>
                         <div class="full">
-                            <a class="hvr-radial-out button-theme" href="#">See More</a>
+                            <a class="hvr-radial-out button-theme" href="{{ url('cinema',{'id' : colisee.id}) }}">See More</a>
                         </div>
                     </div>
                 </div>
@@ -244,21 +234,19 @@
                 <div class="col-md-6">
                     <div class="full">
                         <div class="heading_main text_align_left">
-                            <h2><span>Pathe City Tunis</span></h2>
+                            <h2><span>{{ pathe.name }}</span></h2>
                         </div>
                         <div class="full">
-                            <p>Pathé Tunis City, un multiplexe sur le site de Géant Tunis City,
-                                la meilleure expérience cinéma jamais proposée en Tunisie.
-                                Moderne à la pointe de la technologie avec une programmation large et tout public.</p>
+                            <p>{{ pathe.description }}</p>
                         </div>
                         <div class="full">
-                            <a class="hvr-radial-out button-theme" href="#">See More</a>
+                            <a class="hvr-radial-out button-theme" href="{{ url('cinema',{'id' : pathe.id}) }}">See More</a>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="full">
-                        <img class="img-responsive" src="{{ asset('images/pathe-cinema.jpg') }}" alt="#"/>
+                        <img class="img-responsive" src="{{ asset("uploads/cinema/"~colisee.imagePath) }}" alt="pathe"/>
                     </div>
                 </div>
             </div>
@@ -266,7 +254,7 @@
     </div>
     <!-- end section -->
     <!-- section -->
-    <div class="section layout_padding padding_bottom-0">
+{#    <div class="section layout_padding padding_bottom-0">
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
@@ -361,7 +349,7 @@
 
             </div>
         </div>
-    </div>
+    </div>#}
     <!-- end section -->
     {#
     <!-- section -->

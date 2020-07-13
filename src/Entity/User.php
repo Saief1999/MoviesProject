@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -56,6 +58,22 @@ class User implements UserInterface
      * @ORM\Column(type="boolean")
      */
     private $isVerified = false;
+
+    /**
+     * @ORM\OneToMany(targetEntity=TblComment::class, mappedBy="user", orphanRemoval=true)
+     */
+    private $tblComments;
+
+    /**
+     * @ORM\OneToMany(targetEntity=CinemaRating::class, mappedBy="user", orphanRemoval=true)
+     */
+    private $cinemaRatings;
+
+    public function __construct()
+    {
+        $this->tblComments = new ArrayCollection();
+        $this->cinemaRatings = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -174,6 +192,68 @@ class User implements UserInterface
     public function setIsVerified(bool $isVerified): self
     {
         $this->isVerified = $isVerified;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|TblComment[]
+     */
+    public function getTblComments(): Collection
+    {
+        return $this->tblComments;
+    }
+
+    public function addTblComment(TblComment $tblComment): self
+    {
+        if (!$this->tblComments->contains($tblComment)) {
+            $this->tblComments[] = $tblComment;
+            $tblComment->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTblComment(TblComment $tblComment): self
+    {
+        if ($this->tblComments->contains($tblComment)) {
+            $this->tblComments->removeElement($tblComment);
+            // set the owning side to null (unless already changed)
+            if ($tblComment->getUser() === $this) {
+                $tblComment->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|CinemaRating[]
+     */
+    public function getCinemaRatings(): Collection
+    {
+        return $this->cinemaRatings;
+    }
+
+    public function addCinemaRating(CinemaRating $cinemaRating): self
+    {
+        if (!$this->cinemaRatings->contains($cinemaRating)) {
+            $this->cinemaRatings[] = $cinemaRating;
+            $cinemaRating->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCinemaRating(CinemaRating $cinemaRating): self
+    {
+        if ($this->cinemaRatings->contains($cinemaRating)) {
+            $this->cinemaRatings->removeElement($cinemaRating);
+            // set the owning side to null (unless already changed)
+            if ($cinemaRating->getUser() === $this) {
+                $cinemaRating->setUser(null);
+            }
+        }
 
         return $this;
     }

@@ -24,11 +24,6 @@ class TblComment
     private $comment;
 
     /**
-     * @ORM\Column(type="string", length=40)
-     */
-    private $comment_sender_name;
-
-    /**
      * @ORM\ManyToOne(targetEntity=Cinema::class, inversedBy="tblComments")
      * @ORM\JoinColumn(nullable=false)
      */
@@ -38,6 +33,12 @@ class TblComment
      * @ORM\Column(type="datetime")
      */
     private $replyTime;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="tblComments")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $user;
 
     public function getId(): ?int
     {
@@ -52,18 +53,6 @@ class TblComment
     public function setComment(string $comment): self
     {
         $this->comment = $comment;
-
-        return $this;
-    }
-
-    public function getCommentSenderName(): ?string
-    {
-        return $this->comment_sender_name;
-    }
-
-    public function setCommentSenderName(string $comment_sender_name): self
-    {
-        $this->comment_sender_name = $comment_sender_name;
 
         return $this;
     }
@@ -88,6 +77,18 @@ class TblComment
     public function setReplyTime(\DateTimeInterface $replyTime): self
     {
         $this->replyTime = $replyTime;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
 
         return $this;
     }

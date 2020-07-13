@@ -23,14 +23,9 @@ class CinemaRating
     private $rating;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Cinema::class)
+     * @ORM\ManyToOne(targetEntity=Cinema::class,inversedBy="ratings")
      */
     private $cinema;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $name;
 
     /**
      * @ORM\Column(type="boolean", nullable=true)
@@ -38,9 +33,10 @@ class CinemaRating
     private $enabled;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Cinema::class, inversedBy="ratings")
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="cinemaRatings")
+     * @ORM\JoinColumn(nullable=false)
      */
-    private $MyCinema;
+    private $user;
 
     public function getId(): ?int
     {
@@ -55,7 +51,6 @@ class CinemaRating
     public function setRating(?int $rating): self
     {
         $this->rating = $rating;
-
         return $this;
     }
 
@@ -67,18 +62,6 @@ class CinemaRating
     public function setCinema(?Cinema $cinema): self
     {
         $this->cinema = $cinema;
-
-        return $this;
-    }
-
-    public function getName(): ?string
-    {
-        return $this->name;
-    }
-
-    public function setName(?string $name): self
-    {
-        $this->name = $name;
 
         return $this;
     }
@@ -95,14 +78,14 @@ class CinemaRating
         return $this;
     }
 
-    public function getMyCinema(): ?Cinema
+    public function getUser(): ?User
     {
-        return $this->MyCinema;
+        return $this->user;
     }
 
-    public function setMyCinema(?Cinema $MyCinema): self
+    public function setUser(?User $user): self
     {
-        $this->MyCinema = $MyCinema;
+        $this->user = $user;
 
         return $this;
     }

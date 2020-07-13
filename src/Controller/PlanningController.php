@@ -34,10 +34,9 @@ class PlanningController extends AbstractController
             {$repository =$this->getDoctrine()->getRepository(CinemaOwner::class);
             $owner=$repository->findOneBy(array('user'=>$cinemaOwneruser));
             $cinema = $owner->getCinema() ;
-                if ($cinema->getId()== $planning->getId())
+                if ($cinema->getId()== $planning->getCinema()->getId())
                 { $isOwner = true  ; }
             }
-
             /**
              * The schedule is done with this model :
              * ["Monday"=>[movie1,movie2...],"Tuesday"=>[],....]
@@ -164,6 +163,7 @@ class PlanningController extends AbstractController
                     $date = date('Y-m-d', strtotime($first_day . "+" . $i . " days"));
                     $weekdays[$i] = (new \DateTime($date))->format("l");
                 }
+                $movie=null ;
                 if (in_array($day, $weekdays)) {
 
                     $date = date('Y-m-d', strtotime($first_day . "+" . array_search($day, $weekdays) . " days"));
@@ -207,7 +207,7 @@ class PlanningController extends AbstractController
                 $position=array_search($moviePlanning,$schedule[$day]);
                 $status = "success";
                 $message = "New Movie added";
-                $id =$repository->findOneBy(["tmdbLink" => $link])->getId() ;
+                $id = $repository->findOneBy(["tmdbLink" => $link])->getId() ;
                 $code=200 ;
                 return $this->json(["status"=>$status,"message"=>$message,"movieId"=>$id,"position"=>$position+1],$code) ;
             }

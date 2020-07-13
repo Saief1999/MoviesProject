@@ -15,14 +15,14 @@
                 <img src="{{ asset(profileImage) }}" alt="{{ cinemaowner.cinema.imagePath }}" height=100%
                 width=100% style="margin-top: 30px;border-radius: 10px;margin-bottom: 30px;z-index: 0;position: relative">
             </div>
-            <a class="edit" href="#">
+            <a class="edit" href="{{ url('regowner_settings') }}">
                 Edit profile
             </a>
         </aside>
         <section class="profile-info">
             <h1 class="first-name">{{ cinemaowner.cinema.name }}</h1>
             <h1 class="second-name">owned by {{ cinemaowner.user.firstName }}</h1>
-            <p class="proile-rating">RANKINGS : <span>DNF</span></p>
+            <p class="proile-rating">Rating : <span>{{ rating }} / 5</span></p>
             <ul class="nav nav-tabs" id="myTab" role="tablist">
                 <li class="nav-item">
                     <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab"
@@ -30,7 +30,7 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab"
-                       aria-controls="profile" aria-selected="false">Today Schedule </a>
+                       aria-controls="profile" aria-selected="false">More</a>
                 </li>
             </ul>
             <div class="row">
@@ -82,12 +82,12 @@
                                             <p>{{ cinemaowner.cinema.openingTime|date('H:i') }}</p>
                                         </div>
                                     </div>
-                                    <div class="row">
+ {#                                   <div class="row">
                                         <div class="col-md-8">
                                             <label>Ticket Price </label>
                                         </div>
                                         <div class="col-md-4">
-                                            <p>35$/hr</p>
+                                            <p>10$/hr</p>
                                         </div>
                                     </div>
                                     <div class="row">
@@ -97,7 +97,7 @@
                                         <div class="col-md-4">
                                             <p>dnf</p>
                                         </div>
-                                    </div>
+                                    </div>#}
                                     <div class="row">
                                         <div class="col-md-8">
                                             <label>Closing Time</label>
