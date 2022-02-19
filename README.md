@@ -15,5 +15,6 @@ This application aims to provide a solution to cinema owner so they can plan man
   <img width="100"  src="https://upload.wikimedia.org/wikipedia/fr/thumb/6/62/MySQL.svg/1200px-MySQL.svg.png">
 </div>
 
-For this project we used the **Symfony** Web Framework. Vanilla Javascript, css and symfony twig templates. In addition to an SQL database
+For this project we used the **Symfony** Web Framework. Vanilla Javascript, css and bootstrap. In addition to an SQL database
 
+Details about movies are being retrieved from **TMDB**
